@@ -1,0 +1,93 @@
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useAuth } from '../context/AuthContext';
+import { LoginScreen } from '../screens/LoginScreen';
+import { RegisterScreen } from '../screens/RegisterScreen';
+import { HomeScreen } from '../screens/HomeScreen';
+import { RestaurantsScreen } from '../screens/RestaurantsScreen';
+import { CameraScreen } from '../screens/CameraScreen';
+import { View, ActivityIndicator } from 'react-native';
+import tw from 'twrnc';
+
+export type RootStackParamList = {
+  Login: undefined;
+  Register: undefined;
+  Home: undefined;
+  Restaurants: undefined;
+  Products: undefined;
+  Cart: undefined;
+  Camera: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const AuthStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animation: 'slide_from_right',
+      }}
+    >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const MainStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animation: 'slide_from_right',
+      }}
+    >
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen 
+        name="Restaurants" 
+        component={RestaurantsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name="Camera" 
+        component={CameraScreen}
+        options={{
+          headerShown: false,
+          presentation: 'fullScreenModal',
+        }}
+      />
+      {/* Add more screens here as needed */}
+    </Stack.Navigator>
+  );
+};
+
+const LoadingScreen = () => {
+  return (
+    <View style={tw`flex-1 justify-center items-center bg-white`}>
+      <ActivityIndicator size="large" color="#3B82F6" />
+      <View style={tw`mt-4`}>
+        <View style={tw`text-2xl font-bold text-gray-800 mb-2`}>
+          {/* TastyFood logo or text could go here */}
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export const AppNavigator: React.FC = () => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  return (
+    <NavigationContainer>
+      {user ? <MainStack /> : <AuthStack />}
+    </NavigationContainer>
+  );
+};
