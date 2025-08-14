@@ -4,10 +4,12 @@ import { Platform } from 'react-native';
 
 // Configure notification behavior
 Notifications.setNotificationHandler({
-  handleNotification: async () => ({
+  handleNotification: async (notification) => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
     shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
   }),
 });
 
@@ -70,7 +72,7 @@ export class NotificationService {
           body,
           sound: 'default',
         },
-        trigger: seconds > 0 ? { seconds } : null,
+        trigger: seconds > 0 ? { type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL, seconds } : null,
       });
 
       return notificationId;

@@ -2,11 +2,16 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../context/AuthContext';
-import { LoginScreen } from '../screens/LoginScreen';
-import { RegisterScreen } from '../screens/RegisterScreen';
-import { HomeScreen } from '../screens/HomeScreen';
-import { RestaurantsScreen } from '../screens/RestaurantsScreen';
-import { CameraScreen } from '../screens/CameraScreen';
+import {
+  LoginScreen,
+  RegisterScreen,
+  HomeScreen,
+  SectionsScreen,
+  ProductsScreen,
+  CartScreen,
+  OrderDetailsScreen,
+  MyOrdersScreen
+} from '../screens';
 import { View, ActivityIndicator } from 'react-native';
 import tw from 'twrnc';
 
@@ -14,10 +19,18 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   Home: undefined;
-  Restaurants: undefined;
-  Products: undefined;
+  Sections: undefined;
+  Products: {
+    sectionId: number;
+    sectionName: string;
+  };
   Cart: undefined;
-  Camera: undefined;
+  MyOrders: undefined;
+  OrderDetails: {
+    facturaId: number;
+    numeroFactura: string;
+    total: number;
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,21 +59,41 @@ const MainStack = () => {
     >
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen 
-        name="Restaurants" 
-        component={RestaurantsScreen}
+        name="Sections" 
+        component={SectionsScreen}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen 
-        name="Camera" 
-        component={CameraScreen}
+        name="Products" 
+        component={ProductsScreen}
         options={{
           headerShown: false,
-          presentation: 'fullScreenModal',
         }}
       />
-      {/* Add more screens here as needed */}
+      <Stack.Screen 
+        name="Cart" 
+        component={CartScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name="MyOrders" 
+        component={MyOrdersScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name="OrderDetails" 
+        component={OrderDetailsScreen}
+        options={{
+          headerShown: false,
+          presentation: 'modal',
+        }}
+      />
     </Stack.Navigator>
   );
 };

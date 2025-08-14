@@ -9,21 +9,22 @@ import {
   RefreshControl,
 } from 'react-native';
 import tw from 'twrnc';
-import { useRestaurants, Restaurant } from '../hooks/useProducts';
+import { useSecciones } from '../hooks/useServices';
 
 interface RestaurantsScreenProps {
   navigation: any;
 }
 
 export const RestaurantsScreen: React.FC<RestaurantsScreenProps> = ({ navigation }) => {
-  const { restaurants, loading, error, refetch } = useRestaurants();
+  const { secciones: services, loading, error } = useSecciones();
+  const refetch = () => {}; // Placeholder for refetch functionality
 
-  const renderRestaurant = ({ item }: { item: Restaurant }) => (
+  const renderService = ({ item }: { item: any }) => (
     <TouchableOpacity
       style={tw`bg-white mx-4 mb-4 rounded-xl shadow-sm border border-gray-100`}
       onPress={() => {
         // Navigate to restaurant details
-        console.log('Navigate to restaurant:', item.id);
+        console.log('Navigate to service:', item.id);
       }}
     >
       <View style={tw`p-4`}>
@@ -70,10 +71,10 @@ export const RestaurantsScreen: React.FC<RestaurantsScreenProps> = ({ navigation
     <View style={tw`flex-1 justify-center items-center px-6`}>
       <Text style={tw`text-6xl mb-4`}>🍽️</Text>
       <Text style={tw`text-xl font-bold text-gray-800 mb-2 text-center`}>
-        No hay restaurantes disponibles
+        No hay servicios disponibles
       </Text>
       <Text style={tw`text-gray-600 text-center mb-4`}>
-        Parece que no hay restaurantes registrados en este momento.
+        Parece que no hay servicios registrados en este momento.
       </Text>
       <TouchableOpacity
         style={tw`bg-blue-600 px-6 py-3 rounded-lg`}
@@ -88,7 +89,7 @@ export const RestaurantsScreen: React.FC<RestaurantsScreenProps> = ({ navigation
     <View style={tw`flex-1 justify-center items-center px-6`}>
       <Text style={tw`text-6xl mb-4`}>❌</Text>
       <Text style={tw`text-xl font-bold text-gray-800 mb-2 text-center`}>
-        Error al cargar restaurantes
+        Error al cargar servicios
       </Text>
       <Text style={tw`text-gray-600 text-center mb-4`}>
         {error}
@@ -102,18 +103,18 @@ export const RestaurantsScreen: React.FC<RestaurantsScreenProps> = ({ navigation
     </View>
   );
 
-  if (loading && restaurants.length === 0) {
+  if (loading && services.length === 0) {
     return (
       <SafeAreaView style={tw`flex-1 bg-gray-50`}>
         <View style={tw`flex-1 justify-center items-center`}>
           <ActivityIndicator size="large" color="#3B82F6" />
-          <Text style={tw`text-gray-600 mt-4`}>Cargando restaurantes...</Text>
+          <Text style={tw`text-gray-600 mt-4`}>Cargando servicios...</Text>
         </View>
       </SafeAreaView>
     );
   }
 
-  if (error && restaurants.length === 0) {
+  if (error && services.length === 0) {
     return (
       <SafeAreaView style={tw`flex-1 bg-gray-50`}>
         {renderError()}
@@ -132,17 +133,17 @@ export const RestaurantsScreen: React.FC<RestaurantsScreenProps> = ({ navigation
           >
             <Text style={tw`text-2xl`}>←</Text>
           </TouchableOpacity>
-          <Text style={tw`text-xl font-bold text-gray-800`}>Restaurantes</Text>
+          <Text style={tw`text-xl font-bold text-gray-800`}>Servicios</Text>
         </View>
       </View>
 
-      {restaurants.length === 0 ? (
+      {services.length === 0 ? (
         renderEmptyState()
       ) : (
         <FlatList
-          data={restaurants}
-          renderItem={renderRestaurant}
-          keyExtractor={(item) => item.id}
+          data={services}
+          renderItem={renderService}
+          keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={tw`py-4`}
           refreshControl={
             <RefreshControl

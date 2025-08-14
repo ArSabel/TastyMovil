@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import tw from 'twrnc';
 import { useAuth } from '../context/AuthContext';
+import { supabase } from '../lib/supabase';
 
 interface RegisterScreenProps {
   navigation: any;
@@ -22,6 +23,31 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
+
+  const createUserProfile = async (userId: string, userEmail: string) => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .insert({
+          id: userId,
+          first_name: '',
+          last_name: '',
+          cedula_ruc: '',
+          phone: '',
+          gender: '',
+          birth_date: null,
+          role: 'customer'
+        });
+
+      if (error) {
+        console.error('Error creating profile:', error);
+        throw error;
+      }
+    } catch (error) {
+      console.error('Profile creation failed:', error);
+      throw error;
+    }
+  };
 
   const handleRegister = async () => {
     if (!email || !password || !confirmPassword) {
@@ -40,22 +66,61 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
     }
 
     setLoading(true);
-    const { error } = await signUp(email, password);
-    setLoading(false);
+    
+    try {
+      const { data, error } = await signUp(email, password);
+      
+      if (error) {
+        Alert.alert('Error de registro', error.message);
+        return;
+      }
 
-    if (error) {
-      Alert.alert('Error de registro', error.message);
-    } else {
-      Alert.alert(
-        'Registro exitoso',
-        'Se ha enviado un email de confirmación a tu correo electrónico.',
-        [
-          {
-            text: 'OK',
-            onPress: () => navigation.navigate('Login'),
-          },
-        ]
-      );
+      // Si el registro fue exitoso y tenemos el usuario
+      if (data?.user) {
+        try {
+          // Crear el perfil del usuario
+          await createUserProfile(data.user.id, email);
+          
+          Alert.alert(
+            'Registro exitoso',
+            'Se ha enviado un email de confirmación a tu correo electrónico.',
+            [
+              {
+                text: 'OK',
+                onPress: () => navigation.navigate('Login'),
+              },
+            ]
+          );
+        } catch (profileError) {
+          console.error('Error creating user profile:', profileError);
+          Alert.alert(
+            'Registro parcialmente exitoso',
+            'Tu cuenta fue creada pero hubo un problema configurando tu perfil. Contacta al soporte si tienes problemas.',
+            [
+              {
+                text: 'OK',
+                onPress: () => navigation.navigate('Login'),
+              },
+            ]
+          );
+        }
+      } else {
+        Alert.alert(
+          'Registro exitoso',
+          'Se ha enviado un email de confirmación a tu correo electrónico.',
+          [
+            {
+              text: 'OK',
+              onPress: () => navigation.navigate('Login'),
+            },
+          ]
+        );
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      Alert.alert('Error', 'Ocurrió un error durante el registro. Inténtalo de nuevo.');
+    } finally {
+      setLoading(false);
     }
   };
 
