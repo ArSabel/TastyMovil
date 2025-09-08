@@ -6,12 +6,13 @@ import {
   LoginScreen,
   RegisterScreen,
   HomeScreen,
-  SectionsScreen,
   ProductsScreen,
-  CartScreen,
   OrderDetailsScreen,
-  MyOrdersScreen
+  MyOrdersScreen,
+  CameraScreen,
+  RestaurantsScreen,
 } from '../screens';
+import { BottomTabNavigator } from './BottomTabNavigator';
 import { View, ActivityIndicator } from 'react-native';
 import tw from 'twrnc';
 
@@ -57,24 +58,11 @@ const MainStack = () => {
         animation: 'slide_from_right',
       }}
     >
+      <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen 
-        name="Sections" 
-        component={SectionsScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
       <Stack.Screen 
         name="Products" 
         component={ProductsScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen 
-        name="Cart" 
-        component={CartScreen}
         options={{
           headerShown: false,
         }}
@@ -94,6 +82,8 @@ const MainStack = () => {
           presentation: 'modal',
         }}
       />
+      <Stack.Screen name="Camera" component={CameraScreen} />
+      <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
     </Stack.Navigator>
   );
 };

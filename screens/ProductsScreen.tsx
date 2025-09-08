@@ -109,7 +109,7 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
         <Text style={tw`text-xl font-bold text-gray-800 mb-2 text-center`}>Error al cargar productos</Text>
         <Text style={tw`text-gray-600 text-center mb-6`}>{error}</Text>
         <TouchableOpacity
-          style={tw`bg-blue-500 rounded-2xl py-3 px-6`}
+          style={tw`bg-orange-500 rounded-2xl py-3 px-6`}
           onPress={() => navigation.goBack()}
         >
           <Text style={tw`text-white font-bold`}>Volver</Text>
@@ -121,7 +121,7 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
   if (loading) {
     return (
       <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center`}>
-        <ActivityIndicator size="large" color="#3B82F6" />
+        <ActivityIndicator size="large" color="#EA580C" />
         <Text style={tw`mt-4 text-gray-600 text-lg`}>Cargando productos...</Text>
       </SafeAreaView>
     );
@@ -133,20 +133,20 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
       <View style={tw`bg-white px-6 py-4 shadow-sm`}>
         <View style={tw`flex-row items-center`}>
           <TouchableOpacity
-            style={tw`mr-4 p-2 rounded-full bg-gray-100`}
+            style={tw`mr-4 p-2 rounded-full bg-orange-100`}
             onPress={() => navigation.goBack()}
           >
-            <Text style={tw`text-xl`}>←</Text>
+            <Text style={tw`text-xl text-orange-600`}>←</Text>
           </TouchableOpacity>
           <View style={tw`flex-1`}>
-            <Text style={tw`text-2xl font-bold text-gray-800`}>{sectionName}</Text>
+            <Text style={tw`text-2xl font-bold text-orange-600`}>{sectionName}</Text>
             <Text style={tw`text-gray-600`}>{productos.length} productos disponibles</Text>
           </View>
           <TouchableOpacity
-            style={tw`p-2 rounded-full bg-red-100`}
+            style={tw`p-2 rounded-full bg-orange-100`}
             onPress={() => navigation.navigate('Cart')}
           >
-            <Text style={tw`text-xl`}>🛒</Text>
+            <Text style={tw`text-xl text-orange-600`}>🛒</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -160,13 +160,13 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
               <Text style={tw`text-gray-600 text-center`}>Por el momento no hay productos en esta sección</Text>
             </View>
           ) : (
-            <View style={tw`space-y-4`}>
-              {productos.map((producto) => (
+            <View>
+              {productos.map((producto, index) => (
                 <View
                   key={producto.id}
                   style={tw`bg-white rounded-2xl p-4 shadow-sm border border-gray-100 ${
                     isOutOfStock(producto) ? 'opacity-60' : ''
-                  }`}
+                  } ${index > 0 ? 'mt-4' : ''}`}
                 >
                   <View style={tw`flex-row`}>
                     {/* Product Image/Icon */}
@@ -189,7 +189,7 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
                           {producto.nombre}
                         </Text>
                         <View style={tw`items-end`}>
-                          <Text style={tw`text-xl font-bold text-green-600`}>
+                          <Text style={tw`text-xl font-bold text-orange-600`}>
                             ${producto.precio.toFixed(2)}
                           </Text>
                           <View style={tw`${getStockBadgeColor(producto.stock_actual || 0)} rounded-full px-2 py-1 mt-1`}>
@@ -233,7 +233,7 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
 
                           {/* Add to Cart Button */}
                           <TouchableOpacity
-                            style={tw`bg-blue-500 rounded-xl py-3 px-6 flex-row items-center`}
+                            style={tw`bg-orange-500 rounded-xl py-3 px-6 flex-row items-center`}
                             onPress={() => handleAddToCart(producto)}
                             activeOpacity={0.8}
                           >

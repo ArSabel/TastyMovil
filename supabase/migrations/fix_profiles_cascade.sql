@@ -1,7 +1,9 @@
--- Migración completa para asegurar que todos los usuarios tengan perfiles
--- Incluye usuarios confirmados y no confirmados para evitar problemas futuros
+-- Migración para crear perfiles faltantes eliminando triggers problemáticos
 
--- Crear perfiles para usuarios que no los tengan (incluyendo no confirmados)
+-- Eliminar trigger y función problemática con CASCADE
+DROP FUNCTION IF EXISTS notify_new_user() CASCADE;
+
+-- Crear perfiles para usuarios que no los tengan
 INSERT INTO profiles (id, first_name, last_name, full_name, cedula_ruc, phone, gender, birth_date, role, created_at, updated_at)
 SELECT 
     u.id,
@@ -43,12 +45,14 @@ FROM auth.users u
 LEFT JOIN profiles p ON u.id = p.id
 WHERE p.id IS NULL AND u.deleted_at IS NULL;
 
--- Mostrar usuarios específicos que podrían estar causando problemas
+-- Mostrar usuarios recientes y su estado de perfil
 SELECT 
     u.id,
     u.email,
     u.email_confirmed_at,
-    CASE WHEN p.id IS NOT NULL THEN 'Tiene perfil' ELSE 'SIN PERFIL' END as estado_perfil
+    u.created_at as fecha_registro,
+    CASE WHEN p.id IS NOT NULL THEN 'Tiene perfil' ELSE 'SIN PERFIL' END as estado_perfil,
+    p.role
 FROM auth.users u
 LEFT JOIN profiles p ON u.id = p.id
 WHERE u.deleted_at IS NULL

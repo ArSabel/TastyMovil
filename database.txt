@@ -2,6 +2,7 @@ CREATE TABLE profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id),
   first_name TEXT,
   last_name TEXT,
+  full_name TEXT,
   cedula_ruc TEXT,
   phone TEXT,
   gender TEXT,

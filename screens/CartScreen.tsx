@@ -143,13 +143,13 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
       <View style={tw`bg-white px-6 py-4 shadow-sm`}>
         <View style={tw`flex-row items-center`}>
           <TouchableOpacity
-            style={tw`mr-4 p-2 rounded-full bg-gray-100`}
+            style={tw`mr-4 p-2 rounded-full bg-orange-100`}
             onPress={() => navigation.goBack()}
           >
-            <Text style={tw`text-xl`}>←</Text>
+            <Text style={tw`text-xl text-orange-600`}>←</Text>
           </TouchableOpacity>
           <View style={tw`flex-1`}>
-            <Text style={tw`text-2xl font-bold text-gray-800`}>Mi Carrito</Text>
+            <Text style={tw`text-2xl font-bold text-orange-600`}>Mi Carrito</Text>
             <Text style={tw`text-gray-600`}>{cartItems.length} productos</Text>
           </View>
         </View>
@@ -164,7 +164,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
             Explora nuestros productos y realiza tu pedido
           </Text>
           <TouchableOpacity
-            style={tw`bg-blue-500 rounded-2xl py-4 px-8`}
+            style={tw`bg-orange-500 rounded-2xl py-4 px-8`}
             onPress={() => navigation.navigate('Home')}
           >
             <Text style={tw`text-white font-bold text-lg`}>Explorar Productos</Text>
@@ -203,7 +203,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
                       <Text style={tw`text-gray-600 text-sm mb-1`}>
                         {item.producto.descripcion || 'Producto fresco y delicioso'}
                       </Text>
-                      <Text style={tw`text-lg font-bold text-green-600 mb-2`}>
+                      <Text style={tw`text-lg font-bold text-orange-600 mb-2`}>
                         {formatPrice(item.producto.precio)} c/u
                       </Text>
                       <Text style={tw`text-gray-800 font-semibold`}>
@@ -224,7 +224,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
                           {item.cantidad}
                         </Text>
                         <TouchableOpacity
-                          style={tw`w-8 h-8 rounded-r-xl bg-green-500 items-center justify-center`}
+                          style={tw`w-8 h-8 rounded-r-xl bg-orange-500 items-center justify-center`}
                           onPress={() => handleUpdateQuantity(item.producto.id, item.cantidad + 1)}
                         >
                           <Text style={tw`text-white font-bold`}>+</Text>
@@ -260,12 +260,12 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
             <View style={tw`border-t border-gray-200 pt-2 mt-2`}>
               <View style={tw`flex-row justify-between mb-4`}>
                 <Text style={tw`text-xl font-bold text-gray-800`}>Total</Text>
-                <Text style={tw`text-xl font-bold text-green-600`}>{formatPrice(summary.total)}</Text>
+                <Text style={tw`text-xl font-bold text-orange-600`}>{formatPrice(summary.total)}</Text>
               </View>
             </View>
 
             <TouchableOpacity
-              style={tw`bg-blue-500 rounded-2xl py-4 items-center ${
+              style={tw`bg-orange-500 rounded-2xl py-4 items-center ${
                 processingOrder || creatingFactura ? 'opacity-50' : ''
               }`}
               onPress={handleCheckout}

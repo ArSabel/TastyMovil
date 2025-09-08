@@ -32,6 +32,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
           id: userId,
           first_name: '',
           last_name: '',
+          full_name: '',
           cedula_ruc: '',
           phone: '',
           gender: '',
@@ -131,7 +132,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
     >
       <ScrollView contentContainerStyle={tw`flex-1 justify-center px-6`}>
         <View style={tw`mb-8`}>
-          <Text style={tw`text-3xl font-bold text-center text-gray-800 mb-2`}>
+          <Text style={tw`text-3xl font-bold text-center text-orange-600 mb-2`}>
             Crear Cuenta
           </Text>
           <Text style={tw`text-lg text-center text-gray-600`}>
@@ -179,7 +180,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
         </View>
 
         <TouchableOpacity
-          style={tw`bg-green-600 rounded-lg py-4 mb-4 ${loading ? 'opacity-50' : ''}`}
+          style={tw`bg-orange-600 rounded-lg py-4 mb-4 ${loading ? 'opacity-50' : ''}`}
           onPress={handleRegister}
           disabled={loading}
         >
@@ -191,7 +192,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
         <View style={tw`flex-row justify-center`}>
           <Text style={tw`text-gray-600`}>¿Ya tienes cuenta? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={tw`text-blue-600 font-semibold`}>Inicia Sesión</Text>
+            <Text style={tw`text-orange-600 font-semibold`}>Inicia Sesión</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

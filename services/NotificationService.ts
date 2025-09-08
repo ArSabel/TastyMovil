@@ -44,7 +44,7 @@ export class NotificationService {
       }
 
       const token = await Notifications.getExpoPushTokenAsync({
-        projectId: 'your-expo-project-id', // Replace with your actual project ID
+        projectId: '550e8400-e29b-41d4-a716-446655440000', // Valid UUID for development
       });
 
       console.log('Expo Push Token:', token.data);

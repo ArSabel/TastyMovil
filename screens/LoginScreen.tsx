@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from 'react-native';
 import tw from 'twrnc';
 import { useAuth } from '../context/AuthContext';
@@ -43,8 +44,13 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView contentContainerStyle={tw`flex-1 justify-center px-6`}>
-        <View style={tw`mb-8`}>
-          <Text style={tw`text-3xl font-bold text-center text-gray-800 mb-2`}>
+        <View style={tw`mb-8 items-center`}>
+          <Image
+            source={require('../assets/TASTYFOOD.png')}
+            style={tw`w-30 h-30 mb-4`}
+            resizeMode="contain"
+          />
+          <Text style={tw`text-3xl font-bold text-center text-orange-600 mb-2`}>
             TastyFood
           </Text>
           <Text style={tw`text-lg text-center text-gray-600`}>
@@ -79,7 +85,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         </View>
 
         <TouchableOpacity
-          style={tw`bg-blue-600 rounded-lg py-4 mb-4 ${loading ? 'opacity-50' : ''}`}
+          style={tw`bg-orange-600 rounded-lg py-4 mb-4 ${loading ? 'opacity-50' : ''}`}
           onPress={handleLogin}
           disabled={loading}
         >
@@ -91,7 +97,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         <View style={tw`flex-row justify-center`}>
           <Text style={tw`text-gray-600`}>¿No tienes cuenta? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={tw`text-blue-600 font-semibold`}>Regístrate</Text>
+            <Text style={tw`text-orange-600 font-semibold`}>Regístrate</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

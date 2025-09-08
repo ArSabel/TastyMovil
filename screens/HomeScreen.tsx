@@ -21,33 +21,63 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     await signOut();
   };
 
-  const menuItems = [
+  const categories = [
     {
-      title: 'Menú',
-      description: 'Explora nuestro delicioso menú',
-      screen: 'Sections',
-      color: 'bg-gradient-to-r from-orange-400 to-red-400',
+      title: 'Desayunos',
       icon: '🍽️',
-      bgColor: 'bg-orange-50',
+      screen: 'Sections',
+      bgColor: 'bg-orange-100',
       textColor: 'text-orange-600',
     },
     {
-      title: 'Mis Pedidos',
-      description: 'Ver pedidos realizados',
-      screen: 'MyOrders',
-      color: 'bg-gradient-to-r from-green-400 to-blue-400',
-      icon: '📋',
-      bgColor: 'bg-green-50',
+      title: 'Almuerzos',
+      icon: '🍽️',
+      screen: 'Sections',
+      bgColor: 'bg-green-100',
       textColor: 'text-green-600',
     },
     {
-      title: 'Mi Carrito',
-      description: 'Productos seleccionados',
-      screen: 'Cart',
-      color: 'bg-gradient-to-r from-red-400 to-orange-400',
-      icon: '🛒',
-      bgColor: 'bg-red-50',
-      textColor: 'text-red-600',
+      title: 'Meriendas',
+      icon: '🍽️',
+      screen: 'Sections',
+      bgColor: 'bg-blue-100',
+      textColor: 'text-blue-600',
+    },
+  ];
+
+  const featuredProducts = [
+    {
+      name: 'Hamburguesa Clásica',
+      price: '$8.50',
+      image: '🍔',
+    },
+    {
+      name: 'Pizza Margherita',
+      price: '$12.00',
+      image: '🍕',
+    },
+    {
+      name: 'Ensalada César',
+      price: '$6.50',
+      image: '🥗',
+    },
+  ];
+
+  const features = [
+    {
+      icon: '🥬',
+      title: 'Ingredientes Frescos',
+      description: 'Utilizamos ingredientes frescos y de calidad en todos nuestros platillos.',
+    },
+    {
+      icon: '🚀',
+      title: 'Entrega Rápida',
+      description: 'Entregamos tu comida caliente y fresca en el menor tiempo posible.',
+    },
+    {
+      icon: '👨‍🍳',
+      title: 'Chefs Expertos',
+      description: 'Nuestros chefs tienen años de experiencia preparando comida deliciosa.',
     },
   ];
 
@@ -58,7 +88,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <View style={tw`bg-white px-6 py-6 shadow-sm`}>
           <View style={tw`flex-row justify-between items-center mb-4`}>
             <View>
-              <Text style={tw`text-3xl font-bold text-gray-800`}>TastyFood</Text>
+              <Text style={tw`text-3xl font-bold text-orange-600`}>TastyFood</Text>
               <Text style={tw`text-gray-600 text-base`}>¡Hola! {user?.email?.split('@')[0]}</Text>
             </View>
             <TouchableOpacity
@@ -68,70 +98,145 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <Text style={tw`text-white font-semibold`}>Salir</Text>
             </TouchableOpacity>
           </View>
-          
-          {/* Search Bar Style */}
-          <View style={tw`bg-gray-100 rounded-full px-4 py-3 flex-row items-center`}>
-            <Text style={tw`text-gray-500 text-base flex-1`}>🔍 ¿Qué se te antoja hoy?</Text>
-          </View>
         </View>
 
-        {/* Promotional Banner */}
-        <View style={tw`mx-6 mt-6 bg-blue-50 border border-blue-100 rounded-2xl p-6 shadow-sm`}>
-          <Text style={tw`text-blue-800 text-xl font-bold mb-2`}>¡Comida Deliciosa!</Text>
-          <Text style={tw`text-blue-600 text-base`}>Descubre nuestros platos más populares</Text>
+        {/* Main Banner */}
+        <View style={tw`mx-6 mt-6 bg-orange-500 rounded-2xl p-8 shadow-lg`}>
+          <Text style={tw`text-white text-2xl font-bold mb-3 text-center`}>
+            Disfruta la mejor experiencia gastronómica en el campus
+          </Text>
+          <Text style={tw`text-orange-100 text-base mb-6 text-center`}>
+            Platillos preparados con ingredientes frescos y de calidad premium
+          </Text>
+          <TouchableOpacity
+            style={tw`bg-white px-6 py-3 rounded-full self-center shadow-sm`}
+            onPress={() => navigation.navigate('Sections')}
+          >
+            <Text style={tw`text-orange-600 font-bold text-base`}>Ver Menú</Text>
+          </TouchableOpacity>
         </View>
 
-        {/* Categories Section */}
+        {/* Nuestras Categorías */}
         <View style={tw`px-6 py-6`}>
-          <Text style={tw`text-2xl font-bold text-gray-800 mb-6`}>¿Qué quieres comer?</Text>
+          <View style={tw`flex-row justify-between items-center mb-6`}>
+            <Text style={tw`text-2xl font-bold text-gray-800`}>Nuestras Categorías</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Sections')}>
+              <Text style={tw`text-orange-600 font-semibold`}>Ver todas</Text>
+            </TouchableOpacity>
+          </View>
           
-          <View style={tw`flex-row flex-wrap justify-between`}>
-            {menuItems.map((item, index) => (
+          <View style={tw`flex-row justify-between`}>
+            {categories.map((category, index) => (
               <TouchableOpacity
                 key={index}
-                style={tw`w-[48%] ${item.bgColor} rounded-2xl p-6 mb-4 shadow-sm border border-gray-100`}
-                onPress={() => navigation.navigate(item.screen)}
+                style={tw`flex-1 ${category.bgColor} rounded-2xl p-4 mx-1 items-center shadow-sm`}
+                onPress={() => navigation.navigate(category.screen)}
                 activeOpacity={0.8}
               >
-                <View style={tw`${item.color} w-12 h-12 rounded-full items-center justify-center mb-4`}>
-                  <Text style={tw`text-2xl`}>{item.icon}</Text>
-                </View>
-                <Text style={tw`${item.textColor} font-bold text-lg mb-2`}>
-                  {item.title}
-                </Text>
-                <Text style={tw`text-gray-600 text-sm leading-5`}>
-                  {item.description}
+                <Text style={tw`text-3xl mb-2`}>{category.icon}</Text>
+                <Text style={tw`${category.textColor} font-bold text-sm text-center`}>
+                  {category.title}
                 </Text>
               </TouchableOpacity>
             ))}
           </View>
         </View>
 
-        {/* Quick Stats */}
-        <View style={tw`mx-6 mb-6 bg-white rounded-2xl p-6 shadow-sm`}>
-          <Text style={tw`text-xl font-bold text-gray-800 mb-4`}>Tu Actividad</Text>
-          <View style={tw`flex-row justify-between`}>
-            <View style={tw`items-center flex-1`}>
-              <View style={tw`bg-blue-100 w-12 h-12 rounded-full items-center justify-center mb-2`}>
-                <Text style={tw`text-blue-600 text-xl`}>📋</Text>
+        {/* Productos Destacados */}
+        <View style={tw`px-6 py-6`}>
+          <View style={tw`flex-row justify-between items-center mb-6`}>
+            <Text style={tw`text-2xl font-bold text-gray-800`}>Productos Destacados</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Sections')}>
+              <Text style={tw`text-orange-600 font-semibold`}>Ver todos</Text>
+            </TouchableOpacity>
+          </View>
+          
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {featuredProducts.map((product, index) => (
+              <View
+                key={index}
+                style={tw`bg-white rounded-2xl p-4 mr-4 shadow-sm border border-gray-100 w-40`}
+              >
+                <Text style={tw`text-4xl text-center mb-3`}>{product.image}</Text>
+                <Text style={tw`font-bold text-gray-800 text-center mb-2`}>
+                  {product.name}
+                </Text>
+                <Text style={tw`text-orange-600 font-bold text-center text-lg`}>
+                  {product.price}
+                </Text>
               </View>
-              <Text style={tw`text-2xl font-bold text-blue-600`}>0</Text>
-              <Text style={tw`text-gray-600 text-sm`}>Pedidos</Text>
-            </View>
-            <View style={tw`items-center flex-1`}>
-              <View style={tw`bg-green-100 w-12 h-12 rounded-full items-center justify-center mb-2`}>
-                <Text style={tw`text-green-600 text-xl`}>💰</Text>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* ¿Por qué elegirnos? */}
+        <View style={tw`px-6 py-6`}>
+          <Text style={tw`text-2xl font-bold text-gray-800 mb-6 text-center`}>¿Por qué elegirnos?</Text>
+          
+          <View>
+            {features.map((feature, index) => (
+              <View key={index} style={tw`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 ${index > 0 ? 'mt-4' : ''}`}>
+                <View style={tw`flex-row items-center mb-3`}>
+                  <Text style={tw`text-2xl mr-4`}>{feature.icon}</Text>
+                  <Text style={tw`font-bold text-gray-800 text-lg flex-1`}>
+                    {feature.title}
+                  </Text>
+                </View>
+                <Text style={tw`text-gray-600 leading-5 ml-12`}>
+                  {feature.description}
+                </Text>
               </View>
-              <Text style={tw`text-2xl font-bold text-green-600`}>$0</Text>
-              <Text style={tw`text-gray-600 text-sm`}>Gastado</Text>
-            </View>
-            <View style={tw`items-center flex-1`}>
-              <View style={tw`bg-orange-100 w-12 h-12 rounded-full items-center justify-center mb-2`}>
-                <Text style={tw`text-orange-600 text-xl`}>🍽️</Text>
+            ))}
+          </View>
+        </View>
+
+        {/* Call to Action */}
+        <View style={tw`mx-6 mb-6 bg-green-500 rounded-2xl p-6 shadow-lg`}>
+          <Text style={tw`text-white text-xl font-bold mb-3 text-center`}>
+            ¿Listo para ordenar?
+          </Text>
+          <Text style={tw`text-green-100 text-base mb-4 text-center`}>
+            Haz tu pedido ahora y disfruta de la mejor comida del campus.
+          </Text>
+          <TouchableOpacity
+            style={tw`bg-white px-6 py-3 rounded-full self-center shadow-sm`}
+            onPress={() => navigation.navigate('Sections')}
+          >
+            <Text style={tw`text-green-600 font-bold text-base`}>Hacer Pedido</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Footer */}
+        <View style={tw`bg-gray-800 mx-6 mb-6 rounded-2xl p-6`}>
+          <Text style={tw`text-white text-xl font-bold mb-4 text-center`}>TastyFood</Text>
+          <Text style={tw`text-gray-300 text-sm mb-4 text-center`}>
+            Somos la Empresa Pública de producción y desarrollo estratégico de la Universidad Laica Eloy Alfaro de Manabí
+          </Text>
+          
+          <View style={tw`border-t border-gray-600 pt-4 mt-4`}>
+            <View style={tw`flex-row justify-between mb-4`}>
+              <View style={tw`flex-1`}>
+                <Text style={tw`text-white font-bold mb-2`}>Horario</Text>
+                <Text style={tw`text-gray-300 text-sm`}>Lunes - Viernes:</Text>
+                <Text style={tw`text-gray-300 text-sm mb-1`}>8:00 - 17:00</Text>
+                <Text style={tw`text-gray-300 text-sm`}>Sábado:</Text>
+                <Text style={tw`text-gray-300 text-sm mb-1`}>8:00 - 14:00</Text>
+                <Text style={tw`text-gray-300 text-sm`}>Domingo:</Text>
+                <Text style={tw`text-gray-300 text-sm`}>Cerrado</Text>
               </View>
-              <Text style={tw`text-2xl font-bold text-orange-600`}>0</Text>
-              <Text style={tw`text-gray-600 text-sm`}>Platos</Text>
+              
+              <View style={tw`flex-1`}>
+                <Text style={tw`text-white font-bold mb-2`}>Contacto</Text>
+                <Text style={tw`text-gray-300 text-sm mb-1`}>+593 95 895 1061</Text>
+                <Text style={tw`text-gray-300 text-sm mb-1`}>052679600</Text>
+                <Text style={tw`text-gray-300 text-sm mb-1`}>gerencia@ep-uleam.gob.ec</Text>
+                <Text style={tw`text-gray-300 text-sm`}>ULEAM, Manta</Text>
+              </View>
             </View>
+            
+            <Text style={tw`text-gray-400 text-xs text-center mt-4`}>
+              © 2025 TastyFood. Todos los derechos reservados.
+            </Text>
           </View>
         </View>
 

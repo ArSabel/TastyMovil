@@ -1,11 +1,12 @@
 -- Migración para crear perfiles para usuarios existentes que no los tengan
 -- Esto soluciona el problema de clave foránea para usuarios registrados antes de la corrección
 
-INSERT INTO profiles (id, first_name, last_name, cedula_ruc, phone, gender, birth_date, role, created_at, updated_at)
+INSERT INTO profiles (id, first_name, last_name, full_name, cedula_ruc, phone, gender, birth_date, role, created_at, updated_at)
 SELECT 
     u.id,
     '' as first_name,
     '' as last_name,
+    '' as full_name,
     '' as cedula_ruc,
     '' as phone,
     '' as gender,
