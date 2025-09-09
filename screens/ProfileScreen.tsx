@@ -44,13 +44,14 @@ import {
 
 interface ProfileScreenProps {
   navigation: any;
+  route?: any;
 }
 
 interface FormErrors {
   [key: string]: string;
 }
 
-export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
+export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route }) => {
   const { user, signOut } = useAuth();
   const { 
     profile, 
@@ -63,7 +64,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
     saveProfile 
   } = useProfile();
   
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(route?.params?.editMode || false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   

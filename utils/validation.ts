@@ -22,30 +22,6 @@ export const validateEcuadorianId = (cedula: string): ValidationResult => {
     return { isValid: false, message: 'La cédula solo debe contener números' };
   }
 
-  const digits = cleanCedula.split('').map(Number);
-  const province = parseInt(cleanCedula.substring(0, 2));
-  
-  // Validar provincia (01-24)
-  if (province < 1 || province > 24) {
-    return { isValid: false, message: 'Código de provincia inválido' };
-  }
-  
-  // Algoritmo de validación de cédula ecuatoriana
-  const coefficients = [2, 1, 2, 1, 2, 1, 2, 1, 2];
-  let sum = 0;
-  
-  for (let i = 0; i < 9; i++) {
-    let result = digits[i] * coefficients[i];
-    if (result > 9) result -= 9;
-    sum += result;
-  }
-  
-  const checkDigit = sum % 10 === 0 ? 0 : 10 - (sum % 10);
-  
-  if (checkDigit !== digits[9]) {
-    return { isValid: false, message: 'Cédula inválida' };
-  }
-
   return { isValid: true };
 };
 
@@ -63,20 +39,6 @@ export const validateEcuadorianRuc = (ruc: string): ValidationResult => {
 
   if (!/^\d{13}$/.test(cleanRuc)) {
     return { isValid: false, message: 'El RUC solo debe contener números' };
-  }
-
-  // Para RUC de persona natural, los primeros 10 dígitos deben ser una cédula válida
-  const cedula = cleanRuc.substring(0, 10);
-  const cedulaValidation = validateEcuadorianId(cedula);
-  
-  if (!cedulaValidation.isValid) {
-    return { isValid: false, message: 'RUC inválido: cédula base incorrecta' };
-  }
-
-  // Los últimos 3 dígitos deben ser 001 para persona natural
-  const lastThree = cleanRuc.substring(10);
-  if (lastThree !== '001') {
-    return { isValid: false, message: 'RUC inválido: debe terminar en 001' };
   }
 
   return { isValid: true };

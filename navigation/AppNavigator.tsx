@@ -5,12 +5,18 @@ import { useAuth } from '../context/AuthContext';
 import {
   LoginScreen,
   RegisterScreen,
+  ProfileScreen,
   HomeScreen,
+  SectionsScreen,
   ProductsScreen,
+  CartScreen,
   OrderDetailsScreen,
   MyOrdersScreen,
   CameraScreen,
   RestaurantsScreen,
+  AboutScreen,
+  LocationsScreen,
+  ContactScreen,
 } from '../screens';
 import { BottomTabNavigator } from './BottomTabNavigator';
 import { View, ActivityIndicator } from 'react-native';
@@ -19,19 +25,18 @@ import tw from 'twrnc';
 export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
+  Profile: undefined;
   Home: undefined;
   Sections: undefined;
-  Products: {
-    sectionId: number;
-    sectionName: string;
-  };
+  Products: { sectionId: string; sectionName: string };
   Cart: undefined;
+  OrderDetails: { orderId: string };
   MyOrders: undefined;
-  OrderDetails: {
-    facturaId: number;
-    numeroFactura: string;
-    total: number;
-  };
+  Camera: undefined;
+  Restaurants: undefined;
+  About: undefined;
+  Locations: undefined;
+  Contact: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -44,8 +49,21 @@ const AuthStack = () => {
         animation: 'slide_from_right',
       }}
     >
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen 
+        name="Login" 
+        component={LoginScreen} 
+        options={{
+          animation: 'slide_from_left',
+        }}
+      />
+      <Stack.Screen 
+        name="Register" 
+        component={RegisterScreen} 
+        options={{
+          animation: 'slide_from_right',
+        }}
+      />
+
     </Stack.Navigator>
   );
 };
@@ -60,6 +78,13 @@ const MainStack = () => {
     >
       <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen 
+        name="Profile" 
+        component={ProfileScreen} 
+        options={{
+          animation: 'slide_from_right',
+        }}
+      />
       <Stack.Screen 
         name="Products" 
         component={ProductsScreen}

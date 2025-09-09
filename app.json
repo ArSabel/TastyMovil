@@ -30,8 +30,11 @@
         "RECORD_AUDIO",
         "RECEIVE_BOOT_COMPLETED",
         "VIBRATE",
-        "WAKE_LOCK"
-      ]
+        "WAKE_LOCK",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.arsabel.tastyfoodmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -53,6 +56,11 @@
           "cameraPermission": "Permitir que TastyFood acceda a tu cámara para tomar fotos de productos."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "cbd5f7f2-b80a-4110-be28-ca68d2617a16"
+      }
+    }
   }
 }
