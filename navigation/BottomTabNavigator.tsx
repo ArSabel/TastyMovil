@@ -9,6 +9,7 @@ import {
   Phone,
   ShoppingCart,
   User,
+  Home,
 } from 'lucide-react-native';
 
 import {
@@ -34,7 +35,7 @@ const getTabBarIcon = (routeName: string) => {
     
     switch (routeName) {
       case 'Menu':
-        IconComponent = Menu;
+        IconComponent = Home;
         break;
       case 'About':
         IconComponent = Users;
@@ -56,7 +57,7 @@ const getTabBarIcon = (routeName: string) => {
     }
     
     return (
-      <View style={tw`items-center justify-center ${focused ? 'bg-orange-100' : ''} rounded-full p-1`}>
+      <View style={tw`items-center justify-center ${focused ? 'bg-blue-100' : ''} rounded-full p-1`}>
         <IconComponent size={size} color={color} />
       </View>
     );
@@ -68,7 +69,7 @@ export const BottomTabNavigator: React.FC = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: getTabBarIcon(route.name),
-        tabBarActiveTintColor: '#f97316', // orange-500
+        tabBarActiveTintColor: '#3B82F6', // blue-500
         tabBarInactiveTintColor: '#6b7280', // gray-500
         tabBarStyle: {
           backgroundColor: 'white',

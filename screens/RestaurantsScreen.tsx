@@ -105,7 +105,7 @@ export const RestaurantsScreen: React.FC<RestaurantsScreenProps> = ({ navigation
 
   if (loading && services.length === 0) {
     return (
-      <SafeAreaView style={tw`flex-1 bg-gray-50`}>
+      <SafeAreaView style={tw`flex-1 bg-gray-50 pt-4`}>
         <View style={tw`flex-1 justify-center items-center`}>
           <ActivityIndicator size="large" color="#3B82F6" />
           <Text style={tw`text-gray-600 mt-4`}>Cargando servicios...</Text>

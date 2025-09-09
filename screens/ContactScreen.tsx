@@ -42,9 +42,9 @@ export const ContactScreen: React.FC<ContactScreenProps> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView style={tw`flex-1 bg-white pt-4`}>
       {/* Header */}
-      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-orange-500`}>
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={tw`p-2`}
@@ -57,7 +57,7 @@ export const ContactScreen: React.FC<ContactScreenProps> = ({ navigation }) => {
 
       <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
-        <View style={tw`px-6 py-8 bg-gradient-to-b from-orange-50 to-white`}>
+        <View style={tw`px-6 py-8 bg-gradient-to-b from-blue-50 to-white`}>
           <Text style={tw`text-2xl font-bold text-gray-800 text-center mb-4`}>
             ¿Necesitas ayuda?
           </Text>
@@ -133,9 +133,9 @@ export const ContactScreen: React.FC<ContactScreenProps> = ({ navigation }) => {
 
         {/* Operating Hours */}
         <View style={tw`px-6 pb-6`}>
-          <View style={tw`bg-orange-50 rounded-2xl p-6 border border-orange-100`}>
+          <View style={tw`bg-blue-50 rounded-2xl p-6 border border-blue-100`}>
             <View style={tw`flex-row items-center mb-4`}>
-              <Clock size={24} color="#f97316" />
+              <Clock size={24} color="#3B82F6" />
               <Text style={tw`text-xl font-bold text-gray-800 ml-3`}>Horarios de Atención</Text>
             </View>
             
@@ -145,12 +145,12 @@ export const ContactScreen: React.FC<ContactScreenProps> = ({ navigation }) => {
                 <Text style={tw`text-gray-800 font-semibold`}>8:00 - 17:00</Text>
               </View>
               
-              <View style={tw`flex-row justify-between items-center py-2 border-t border-orange-200`}>
+              <View style={tw`flex-row justify-between items-center py-2 border-t border-blue-200`}>
                 <Text style={tw`text-gray-700 font-medium`}>Sábado</Text>
                 <Text style={tw`text-gray-800 font-semibold`}>8:00 - 14:00</Text>
               </View>
               
-              <View style={tw`flex-row justify-between items-center py-2 border-t border-orange-200`}>
+              <View style={tw`flex-row justify-between items-center py-2 border-t border-blue-200`}>
                 <Text style={tw`text-gray-700 font-medium`}>Domingo</Text>
                 <Text style={tw`text-red-600 font-semibold`}>Cerrado</Text>
               </View>

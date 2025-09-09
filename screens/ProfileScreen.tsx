@@ -221,7 +221,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
   if (loading) {
     return (
       <SafeAreaView style={tw`flex-1 bg-white justify-center items-center`}>
-        <ActivityIndicator size="large" color="#f97316" />
+        <ActivityIndicator size="large" color="#3B82F6" />
         <Text style={tw`mt-4 text-gray-600`}>Cargando perfil...</Text>
       </SafeAreaView>
     );
@@ -233,7 +233,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
       title: 'Mis Pedidos',
       subtitle: 'Ver historial de pedidos',
       onPress: () => navigation.navigate('MyOrders'),
-      color: '#f97316',
+      color: '#3B82F6',
     },
     {
       icon: Bell,
@@ -252,9 +252,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
   ];
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView style={tw`flex-1 bg-white pt-4`}>
       {/* Header */}
-      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-orange-500`}>
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500 mt-2`}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={tw`p-2`}
@@ -272,9 +272,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
 
       <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>
         {/* Profile Header */}
-        <View style={tw`px-6 py-6 bg-orange-50`}>
+        <View style={tw`px-6 py-6 bg-blue-50`}>
           <View style={tw`items-center mb-4`}>
-            <View style={tw`bg-orange-500 rounded-full p-6 mb-4`}>
+            <View style={tw`bg-blue-500 rounded-full p-6 mb-4`}>
               <User size={40} color="white" />
             </View>
             
@@ -294,7 +294,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
             {/* Personal Information Section */}
             <View style={tw`bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4`}>
               <View style={tw`flex-row items-center mb-4`}>
-                <User size={20} color="#f97316" />
+                <User size={20} color="#3B82F6" />
                 <Text style={tw`text-lg font-semibold text-gray-800 ml-3`}>Información Personal</Text>
               </View>
               
@@ -399,7 +399,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
             {/* Address Section */}
             <View style={tw`bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6`}>
               <View style={tw`flex-row items-center mb-4`}>
-                <MapPin size={20} color="#f97316" />
+                <MapPin size={20} color="#3B82F6" />
                 <Text style={tw`text-lg font-semibold text-gray-800 ml-3`}>Dirección</Text>
               </View>
               
@@ -445,7 +445,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
               <TouchableOpacity
                 onPress={handleSaveProfile}
                 disabled={saving}
-                style={tw`flex-1 bg-orange-500 rounded-lg py-4 flex-row items-center justify-center ${saving ? 'opacity-50' : ''}`}
+                style={tw`flex-1 bg-blue-500 rounded-lg py-4 flex-row items-center justify-center ${saving ? 'opacity-50' : ''}`}
               >
                 {saving ? (
                   <ActivityIndicator size="small" color="white" />
@@ -476,25 +476,25 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
             <View style={tw`bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4`}>
               <View style={tw`flex-row items-center justify-between mb-4`}>
                 <View style={tw`flex-row items-center`}>
-                  <User size={20} color="#f97316" />
+                  <User size={20} color="#3B82F6" />
                   <Text style={tw`text-lg font-semibold text-gray-800 ml-3`}>Información Personal</Text>
                 </View>
                 <TouchableOpacity
                   onPress={() => setIsEditing(true)}
-                  style={tw`bg-orange-100 rounded-lg p-2`}
+                  style={tw`bg-blue-100 rounded-lg p-2`}
                 >
-                  <Edit2 size={16} color="#f97316" />
+                  <Edit2 size={16} color="#3B82F6" />
                 </TouchableOpacity>
               </View>
               
               <View style={tw`gap-3`}>
                 <View style={tw`flex-row items-center`}>
-                  <Mail size={16} color="#6b7280" />
+                  <Mail size={16} color="#3B82F6" />
                   <Text style={tw`text-gray-600 ml-3 flex-1`}>{user?.email}</Text>
                 </View>
                 
                 <View style={tw`flex-row items-center`}>
-                  <Phone size={16} color="#6b7280" />
+                  <Phone size={16} color="#3B82F6" />
                   <Text style={tw`text-gray-600 ml-3 flex-1`}>
                     {profile?.phone || 'No especificado'}
                   </Text>
@@ -526,7 +526,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
             {/* Address Info */}
             <View style={tw`bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4`}>
               <View style={tw`flex-row items-center mb-4`}>
-                <MapPin size={20} color="#f97316" />
+                <MapPin size={20} color="#3B82F6" />
                 <Text style={tw`text-lg font-semibold text-gray-800 ml-3`}>Dirección</Text>
               </View>
               
@@ -577,7 +577,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
         <View style={tw`px-6 pb-6`}>
           <Text style={tw`text-xl font-bold text-gray-800 mb-4`}>Estadísticas</Text>
           
-          <View style={tw`bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-6`}>
+          <View style={tw`bg-gradient-to-r from-blue-500 to-red-500 rounded-2xl p-6`}>
             <Text style={tw`text-white text-lg font-semibold mb-4`}>Resumen de Actividad</Text>
             
             <View style={tw`flex-row justify-between`}>

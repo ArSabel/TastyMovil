@@ -54,7 +54,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                 style={tw`w-24 h-24 mb-4`}
                 resizeMode="contain"
               />
-              <Text style={tw`text-2xl font-bold text-center text-orange-600 mb-2`}>
+              <Text style={tw`text-2xl font-bold text-center text-blue-600 mb-2`}>
                 Bienvenido a Tasty Food
               </Text>
               <Text style={tw`text-base text-center text-blue-500 mb-4`}>

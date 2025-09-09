@@ -15,9 +15,9 @@ interface AboutScreenProps {
 
 export const AboutScreen: React.FC<AboutScreenProps> = ({ navigation }) => {
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView style={tw`flex-1 bg-white pt-4`}>
       {/* Header */}
-      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-orange-500`}>
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={tw`p-2`}
@@ -30,7 +30,7 @@ export const AboutScreen: React.FC<AboutScreenProps> = ({ navigation }) => {
 
       <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
-        <View style={tw`px-6 py-8 bg-gradient-to-b from-orange-50 to-white`}>
+        <View style={tw`px-6 py-8 bg-gradient-to-b from-blue-50 to-white`}>
           <Text style={tw`text-3xl font-bold text-gray-800 text-center mb-4`}>
             TastyFood
           </Text>
@@ -43,7 +43,7 @@ export const AboutScreen: React.FC<AboutScreenProps> = ({ navigation }) => {
         <View style={tw`px-6 py-6`}>
           <View style={tw`mb-8`}>
             <View style={tw`flex-row items-center mb-4`}>
-              <Target size={24} color="#f97316" />
+              <Target size={24} color="#3B82F6" />
               <Text style={tw`text-xl font-bold text-gray-800 ml-3`}>Nuestra Misión</Text>
             </View>
             <Text style={tw`text-gray-600 leading-6`}>
@@ -55,7 +55,7 @@ export const AboutScreen: React.FC<AboutScreenProps> = ({ navigation }) => {
 
           <View style={tw`mb-8`}>
             <View style={tw`flex-row items-center mb-4`}>
-              <Users size={24} color="#f97316" />
+              <Users size={24} color="#3B82F6" />
               <Text style={tw`text-xl font-bold text-gray-800 ml-3`}>Nuestra Visión</Text>
             </View>
             <Text style={tw`text-gray-600 leading-6`}>
@@ -69,7 +69,7 @@ export const AboutScreen: React.FC<AboutScreenProps> = ({ navigation }) => {
         {/* Values */}
         <View style={tw`px-6 py-6 bg-gray-50`}>
           <View style={tw`flex-row items-center mb-6`}>
-            <Award size={24} color="#f97316" />
+            <Award size={24} color="#3B82F6" />
             <Text style={tw`text-xl font-bold text-gray-800 ml-3`}>Nuestros Valores</Text>
           </View>
           

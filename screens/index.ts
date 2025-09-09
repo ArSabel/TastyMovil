@@ -13,3 +13,4 @@ export { AboutScreen } from './AboutScreen';
 export { LocationsScreen } from './LocationsScreen';
 export { ContactScreen } from './ContactScreen';
 export { ProfileScreen } from './ProfileScreen';
+export { SplashScreen } from './SplashScreen';

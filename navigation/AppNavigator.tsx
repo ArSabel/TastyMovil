@@ -18,6 +18,7 @@ import {
   LocationsScreen,
   ContactScreen,
 } from '../screens';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BottomTabNavigator } from './BottomTabNavigator';
 import { View, ActivityIndicator } from 'react-native';
 import tw from 'twrnc';
@@ -30,13 +31,14 @@ export type RootStackParamList = {
   Sections: undefined;
   Products: { sectionId: string; sectionName: string };
   Cart: undefined;
-  OrderDetails: { orderId: string };
+  OrderDetails: { facturaId: number; numeroFactura: string; total: number };
   MyOrders: undefined;
   Camera: undefined;
   Restaurants: undefined;
   About: undefined;
   Locations: undefined;
   Contact: undefined;
+  MainTabs: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

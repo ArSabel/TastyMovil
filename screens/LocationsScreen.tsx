@@ -25,9 +25,9 @@ export const LocationsScreen: React.FC<LocationsScreenProps> = ({ navigation }) 
   };
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView style={tw`flex-1 bg-white pt-4`}>
       {/* Header */}
-      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-orange-500`}>
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={tw`p-2`}
@@ -43,7 +43,7 @@ export const LocationsScreen: React.FC<LocationsScreenProps> = ({ navigation }) 
         <View style={tw`px-6 py-8`}>
           <View style={tw`bg-white rounded-2xl shadow-lg p-6 border border-gray-100`}>
             <View style={tw`flex-row items-center mb-4`}>
-              <MapPin size={28} color="#f97316" />
+              <MapPin size={28} color="#3B82F6" />
               <Text style={tw`text-2xl font-bold text-gray-800 ml-3`}>Campus Principal</Text>
             </View>
             
@@ -58,7 +58,7 @@ export const LocationsScreen: React.FC<LocationsScreenProps> = ({ navigation }) 
             
             <TouchableOpacity
               onPress={openMaps}
-              style={tw`bg-orange-500 rounded-xl py-3 px-4 flex-row items-center justify-center mb-4`}
+              style={tw`bg-blue-500 rounded-xl py-3 px-4 flex-row items-center justify-center mb-4`}
             >
               <Navigation size={20} color="white" />
               <Text style={tw`text-white font-semibold ml-2`}>Ver en Google Maps</Text>
@@ -72,7 +72,7 @@ export const LocationsScreen: React.FC<LocationsScreenProps> = ({ navigation }) 
                 onPress={() => callPhone('+593958951061')}
                 style={tw`flex-row items-center mb-3 p-3 bg-gray-50 rounded-lg`}
               >
-                <Phone size={20} color="#f97316" />
+                <Phone size={20} color="#3B82F6" />
                 <Text style={tw`text-gray-700 ml-3 font-medium`}>+593 95 895 1061</Text>
               </TouchableOpacity>
               
@@ -80,7 +80,7 @@ export const LocationsScreen: React.FC<LocationsScreenProps> = ({ navigation }) 
                 onPress={() => callPhone('052679600')}
                 style={tw`flex-row items-center mb-3 p-3 bg-gray-50 rounded-lg`}
               >
-                <Phone size={20} color="#f97316" />
+                <Phone size={20} color="#3B82F6" />
                 <Text style={tw`text-gray-700 ml-3 font-medium`}>052 679 600</Text>
               </TouchableOpacity>
             </View>
@@ -89,9 +89,9 @@ export const LocationsScreen: React.FC<LocationsScreenProps> = ({ navigation }) 
 
         {/* Operating Hours */}
         <View style={tw`px-6 pb-8`}>
-          <View style={tw`bg-orange-50 rounded-2xl p-6 border border-orange-100`}>
+          <View style={tw`bg-blue-50 rounded-2xl p-6 border border-blue-100`}>
             <View style={tw`flex-row items-center mb-4`}>
-              <Clock size={24} color="#f97316" />
+              <Clock size={24} color="#3B82F6" />
               <Text style={tw`text-xl font-bold text-gray-800 ml-3`}>Horarios de Atención</Text>
             </View>
             
@@ -101,12 +101,12 @@ export const LocationsScreen: React.FC<LocationsScreenProps> = ({ navigation }) 
                 <Text style={tw`text-gray-800 font-semibold`}>8:00 - 17:00</Text>
               </View>
               
-              <View style={tw`flex-row justify-between items-center py-2 border-t border-orange-200`}>
+              <View style={tw`flex-row justify-between items-center py-2 border-t border-blue-200`}>
                 <Text style={tw`text-gray-700 font-medium`}>Sábado</Text>
                 <Text style={tw`text-gray-800 font-semibold`}>8:00 - 14:00</Text>
               </View>
               
-              <View style={tw`flex-row justify-between items-center py-2 border-t border-orange-200`}>
+              <View style={tw`flex-row justify-between items-center py-2 border-t border-blue-200`}>
                 <Text style={tw`text-gray-700 font-medium`}>Domingo</Text>
                 <Text style={tw`text-red-600 font-semibold`}>Cerrado</Text>
               </View>

@@ -26,8 +26,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       title: 'Desayunos',
       icon: '🍽️',
       screen: 'Sections',
-      bgColor: 'bg-orange-100',
-      textColor: 'text-orange-600',
+      bgColor: 'bg-blue-100',
+      textColor: 'text-blue-600',
     },
     {
       title: 'Almuerzos',
@@ -82,13 +82,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   ];
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-gray-50`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-50 pt-4`}>
       <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={tw`bg-white px-6 py-6 shadow-sm`}>
           <View style={tw`flex-row justify-between items-center mb-4`}>
             <View>
-              <Text style={tw`text-3xl font-bold text-orange-600`}>TastyFood</Text>
+              <Text style={tw`text-3xl font-bold text-blue-600`}>TastyFood</Text>
               <Text style={tw`text-gray-600 text-base`}>¡Hola! {user?.email?.split('@')[0]}</Text>
             </View>
             <TouchableOpacity
@@ -101,18 +101,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         </View>
 
         {/* Main Banner */}
-        <View style={tw`mx-6 mt-6 bg-orange-500 rounded-2xl p-8 shadow-lg`}>
+        <View style={tw`mx-6 mt-6 bg-blue-500 rounded-2xl p-8 shadow-lg`}>
           <Text style={tw`text-white text-2xl font-bold mb-3 text-center`}>
             Disfruta la mejor experiencia gastronómica en el campus
           </Text>
-          <Text style={tw`text-orange-100 text-base mb-6 text-center`}>
+          <Text style={tw`text-blue-100 text-base mb-6 text-center`}>
             Platillos preparados con ingredientes frescos y de calidad premium
           </Text>
           <TouchableOpacity
             style={tw`bg-white px-6 py-3 rounded-full self-center shadow-sm`}
-            onPress={() => navigation.navigate('Sections')}
+            onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}
           >
-            <Text style={tw`text-orange-600 font-bold text-base`}>Ver Menú</Text>
+            <Text style={tw`text-blue-600 font-bold text-base`}>Ver Menú</Text>
           </TouchableOpacity>
         </View>
 
@@ -120,8 +120,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <View style={tw`px-6 py-6`}>
           <View style={tw`flex-row justify-between items-center mb-6`}>
             <Text style={tw`text-2xl font-bold text-gray-800`}>Nuestras Categorías</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Sections')}>
-              <Text style={tw`text-orange-600 font-semibold`}>Ver todas</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}>
+              <Text style={tw`text-blue-600 font-semibold`}>Ver todas</Text>
             </TouchableOpacity>
           </View>
           
@@ -130,7 +130,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <TouchableOpacity
                 key={index}
                 style={tw`flex-1 ${category.bgColor} rounded-2xl p-4 mx-1 items-center shadow-sm`}
-                onPress={() => navigation.navigate(category.screen)}
+                onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}
                 activeOpacity={0.8}
               >
                 <Text style={tw`text-3xl mb-2`}>{category.icon}</Text>
@@ -146,8 +146,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <View style={tw`px-6 py-6`}>
           <View style={tw`flex-row justify-between items-center mb-6`}>
             <Text style={tw`text-2xl font-bold text-gray-800`}>Productos Destacados</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Sections')}>
-              <Text style={tw`text-orange-600 font-semibold`}>Ver todos</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}>
+              <Text style={tw`text-blue-600 font-semibold`}>Ver todos</Text>
             </TouchableOpacity>
           </View>
           
@@ -161,7 +161,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 <Text style={tw`font-bold text-gray-800 text-center mb-2`}>
                   {product.name}
                 </Text>
-                <Text style={tw`text-orange-600 font-bold text-center text-lg`}>
+                <Text style={tw`text-blue-600 font-bold text-center text-lg`}>
                   {product.price}
                 </Text>
               </View>
@@ -200,7 +200,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           </Text>
           <TouchableOpacity
             style={tw`bg-white px-6 py-3 rounded-full self-center shadow-sm`}
-            onPress={() => navigation.navigate('Sections')}
+            onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}
           >
             <Text style={tw`text-green-600 font-bold text-base`}>Hacer Pedido</Text>
           </TouchableOpacity>

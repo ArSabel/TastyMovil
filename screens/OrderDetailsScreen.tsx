@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   Alert,
   Share,
-  ActivityIndicator
+  ActivityIndicator,
+  Image
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import tw from 'twrnc';
-import QRCode from 'react-native-qrcode-svg';
+// QRCode temporalmente removido para solucionar error de react-native-svg
+// import QRCode from 'react-native-qrcode-svg';
 import { useFacturas, Factura, FacturaDetalle } from '../hooks/useServices';
 
 interface OrderDetailsScreenProps {
@@ -217,12 +219,10 @@ export const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ navigati
           <Text style={tw`text-xl font-bold text-gray-800 mb-4`}>Código QR del Pedido</Text>
           
           <View style={tw`w-48 h-48 bg-white rounded-2xl items-center justify-center mb-4 border border-gray-200`}>
-            <QRCode
-              value={generateQRData()}
-              size={180}
-              color="black"
-              backgroundColor="white"
-            />
+            {/* QRCode temporalmente reemplazado por un texto para solucionar error de react-native-svg */}
+            <View style={tw`w-40 h-40 bg-gray-200 rounded-xl items-center justify-center`}>
+              <Text style={tw`text-gray-800 font-bold text-center p-4`}>Código QR no disponible temporalmente</Text>
+            </View>
           </View>
           
           <Text style={tw`text-gray-600 text-center text-sm`}>Muestra este código para confirmar tu pedido</Text>

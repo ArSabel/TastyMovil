@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Círculo exterior azul -->
+  <circle cx="250" cy="250" r="240" fill="none" stroke="#0000CC" stroke-width="10"/>
+  
+  <!-- Texto ULEAM en la parte superior -->
+  <text x="250" y="80" font-family="Arial" font-size="48" font-weight="bold" text-anchor="middle">ULEAM</text>
+  
+  <!-- Círculo interior blanco con borde negro -->
+  <circle cx="250" cy="250" r="150" fill="white" stroke="black" stroke-width="2"/>
+  
+  <!-- Plato con cubiertos (degradado rojo-naranja) -->
+  <defs>
+    <linearGradient id="plateGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF3B30" />
+      <stop offset="100%" stop-color="#FF9500" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Plato (semicírculo) -->
+  <path d="M175,250 A75,75 0 0,1 325,250" fill="url(#plateGradient)" stroke="none"/>
+  
+  <!-- Tenedor -->
+  <path d="M225,250 L225,200" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  <path d="M225,200 L225,180" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M215,180 L235,180" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M215,190 L235,190" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Cuchillo -->
+  <path d="M250,250 L250,190" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  <path d="M250,190 L260,180 L250,170" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Cuchara -->
+  <path d="M275,250 L275,200" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  <ellipse cx="275" cy="180" rx="10" ry="15" fill="white" stroke="white" stroke-width="2"/>
+  
+  <!-- Mano sosteniendo el plato (degradado amarillo) -->
+  <defs>
+    <linearGradient id="handGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFCC00" />
+      <stop offset="100%" stop-color="#FFD60A" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Mano estilizada -->
+  <path d="M175,300 C175,320 200,330 250,330 C300,330 325,320 325,300 L325,320 C325,340 300,350 250,350 C200,350 175,340 175,320 Z" fill="url(#handGradient)" stroke="none"/>
+  <rect x="175" y="300" width="30" height="50" fill="url(#handGradient)" stroke="none"/>
+  <path d="M205,300 C205,280 215,270 235,270 C255,270 265,280 265,300" fill="none" stroke="url(#handGradient)" stroke-width="20" stroke-linecap="round"/>
+  
+  <!-- Texto TASTY FOOD en la parte inferior -->
+  <text x="250" y="440" font-family="Arial" font-size="48" font-weight="bold" text-anchor="middle">TASTY FOOD</text>
+  
+  <!-- Puntos decorativos -->
+  <circle cx="70" cy="250" r="10" fill="black"/>
+  <circle cx="430" cy="250" r="10" fill="black"/>
+</svg>

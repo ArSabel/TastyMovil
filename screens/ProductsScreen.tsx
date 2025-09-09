@@ -92,13 +92,13 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
 
   const getStockColor = (stock: number) => {
     if (stock === 0) return 'text-red-600';
-    if (stock <= 5) return 'text-orange-600';
+    if (stock <= 5) return 'text-blue-600';
     return 'text-green-600';
   };
 
   const getStockBadgeColor = (stock: number) => {
     if (stock === 0) return 'bg-red-100';
-    if (stock <= 5) return 'bg-orange-100';
+    if (stock <= 5) return 'bg-blue-100';
     return 'bg-green-100';
   };
 
@@ -109,9 +109,9 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
         <Text style={tw`text-xl font-bold text-gray-800 mb-2 text-center`}>Error al cargar productos</Text>
         <Text style={tw`text-gray-600 text-center mb-6`}>{error}</Text>
         <TouchableOpacity
-          style={tw`bg-orange-500 rounded-2xl py-3 px-6`}
-          onPress={() => navigation.goBack()}
-        >
+           style={tw`bg-blue-500 rounded-2xl py-3 px-6`}
+           onPress={() => navigation.goBack()}
+         >
           <Text style={tw`text-white font-bold`}>Volver</Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -121,32 +121,32 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
   if (loading) {
     return (
       <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center`}>
-        <ActivityIndicator size="large" color="#EA580C" />
+        <ActivityIndicator size="large" color="#2563EB" />
         <Text style={tw`mt-4 text-gray-600 text-lg`}>Cargando productos...</Text>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-gray-50`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-50 pt-4`}>
       {/* Header */}
       <View style={tw`bg-white px-6 py-4 shadow-sm`}>
         <View style={tw`flex-row items-center`}>
           <TouchableOpacity
-            style={tw`mr-4 p-2 rounded-full bg-orange-100`}
+            style={tw`mr-4 p-2 rounded-full bg-blue-100`}
             onPress={() => navigation.goBack()}
           >
-            <Text style={tw`text-xl text-orange-600`}>←</Text>
+            <Text style={tw`text-xl text-blue-600`}>←</Text>
           </TouchableOpacity>
           <View style={tw`flex-1`}>
-            <Text style={tw`text-2xl font-bold text-orange-600`}>{sectionName}</Text>
+            <Text style={tw`text-2xl font-bold text-blue-600`}>{sectionName}</Text>
             <Text style={tw`text-gray-600`}>{productos.length} productos disponibles</Text>
           </View>
           <TouchableOpacity
-            style={tw`p-2 rounded-full bg-orange-100`}
+            style={tw`p-2 rounded-full bg-blue-100`}
             onPress={() => navigation.navigate('Cart')}
           >
-            <Text style={tw`text-xl text-orange-600`}>🛒</Text>
+            <Text style={tw`text-xl text-blue-600`}>🛒</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -189,7 +189,7 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
                           {producto.nombre}
                         </Text>
                         <View style={tw`items-end`}>
-                          <Text style={tw`text-xl font-bold text-orange-600`}>
+                          <Text style={tw`text-xl font-bold text-blue-600`}>
                             ${producto.precio.toFixed(2)}
                           </Text>
                           <View style={tw`${getStockBadgeColor(producto.stock_actual || 0)} rounded-full px-2 py-1 mt-1`}>
@@ -233,7 +233,7 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
 
                           {/* Add to Cart Button */}
                           <TouchableOpacity
-                            style={tw`bg-orange-500 rounded-xl py-3 px-6 flex-row items-center`}
+                            style={tw`bg-blue-500 rounded-xl py-3 px-6 flex-row items-center`}
                             onPress={() => handleAddToCart(producto)}
                             activeOpacity={0.8}
                           >

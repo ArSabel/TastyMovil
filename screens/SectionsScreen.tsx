@@ -30,10 +30,10 @@ export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation }) =>
 
   const getSectionColor = (index: number) => {
     const colors = [
-      { bg: 'bg-orange-100', text: 'text-orange-600' },
+      { bg: 'bg-blue-100', text: 'text-blue-600' },
       { bg: 'bg-red-100', text: 'text-red-600' },
       { bg: 'bg-yellow-100', text: 'text-yellow-600' },
-      { bg: 'bg-orange-50', text: 'text-orange-700' },
+      { bg: 'bg-blue-50', text: 'text-blue-700' },
     ];
     return colors[index % colors.length];
   };
@@ -52,7 +52,7 @@ export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation }) =>
         <Text style={tw`text-xl font-bold text-gray-800 mb-2 text-center`}>Error al cargar secciones</Text>
         <Text style={tw`text-gray-600 text-center mb-6`}>{error}</Text>
         <TouchableOpacity
-          style={tw`bg-orange-500 rounded-2xl py-3 px-6`}
+          style={tw`bg-blue-500 rounded-2xl py-3 px-6`}
           onPress={() => navigation.goBack()}
         >
           <Text style={tw`text-white font-bold`}>Volver</Text>
@@ -64,7 +64,7 @@ export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation }) =>
   if (loading) {
     return (
       <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center`}>
-        <ActivityIndicator size="large" color="#EA580C" />
+        <ActivityIndicator size="large" color="#2563EB" />
         <Text style={tw`mt-4 text-gray-600 text-lg`}>Cargando secciones...</Text>
       </SafeAreaView>
     );
@@ -75,13 +75,7 @@ export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation }) =>
       {/* Header */}
       <View style={tw`bg-white px-6 py-4 shadow-sm`}>
         <View style={tw`flex-row items-center`}>
-          <TouchableOpacity
-            style={tw`mr-4 p-2 rounded-full bg-orange-100`}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={tw`text-xl text-orange-600`}>←</Text>
-          </TouchableOpacity>
-          <Text style={tw`text-2xl font-bold text-orange-600`}>Nuestro Menú</Text>
+          <Text style={tw`text-2xl font-bold text-blue-600`}>Nuestro Menú</Text>
         </View>
       </View>
 
