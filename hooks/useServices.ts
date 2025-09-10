@@ -402,6 +402,130 @@ export const useCreateFactura = () => {
   };
 };
 
+// Hook para obtener productos destacados (más vendidos) con stock disponible
+export const useProductosDestacados = (limit: number = 5) => {
+  const [productos, setProductos] = useState<Producto[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchProductosDestacados = async () => {
+    try {
+      setLoading(true);
+      const fechaActual = new Date().toISOString().split('T')[0];
+      
+      // Primero obtenemos los productos más vendidos
+      // Obtenemos las ventas sin usar group by
+      const { data: ventasData, error: ventasError } = await supabase
+        .from('ventas')
+        .select('producto_id, cantidad')
+        .gt('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()) // Últimos 30 días
+        .order('cantidad', { ascending: false })
+        .limit(limit * 10) // Obtenemos más productos para agrupar manualmente
+
+      if (ventasError) throw ventasError;
+      
+      // Agrupamos manualmente por producto_id y sumamos las cantidades
+      const ventasAgrupadas = ventasData ? ventasData.reduce((acc: {producto_id: string, sum: number}[], venta: {producto_id: string, cantidad: number}) => {
+        const existingIndex = acc.findIndex(item => item.producto_id === venta.producto_id);
+        if (existingIndex >= 0) {
+          acc[existingIndex].sum += venta.cantidad;
+        } else {
+          acc.push({ producto_id: venta.producto_id, sum: venta.cantidad });
+        }
+        return acc;
+      }, []).sort((a, b) => b.sum - a.sum).slice(0, limit * 3) : [];
+      
+      if (!ventasAgrupadas || ventasAgrupadas.length === 0) {
+        // Si no hay ventas, obtenemos algunos productos activos
+        const { data: productosData, error: productosError } = await supabase
+          .from('productos')
+          .select('*')
+          .eq('activo', true)
+          .order('orden', { ascending: true })
+          .limit(limit * 3);
+
+        if (productosError) throw productosError;
+        
+        // Para cada producto, obtenemos su stock actual
+        const productosConStock = await Promise.all(
+          (productosData || []).map(async (producto) => {
+            const { data: stockData } = await supabase
+              .from('stock_diario')
+              .select('cantidad_actual')
+              .eq('producto_id', producto.id)
+              .eq('fecha', fechaActual)
+              .single();
+            
+            return {
+              ...producto,
+              stock_actual: stockData?.cantidad_actual || 0
+            };
+          })
+        );
+        
+        // Filtramos solo productos con stock disponible
+        const productosDisponibles = productosConStock.filter(p => p.stock_actual > 0);
+        setProductos(productosDisponibles.slice(0, limit));
+      } else {
+        // Si hay ventas, obtenemos los detalles de los productos más vendidos
+        const productosIds = ventasAgrupadas.map((v: { producto_id: string }) => v.producto_id);
+        
+        const { data: productosData, error: productosError } = await supabase
+          .from('productos')
+          .select('*')
+          .in('id', productosIds)
+          .eq('activo', true);
+
+        if (productosError) throw productosError;
+        
+        // Para cada producto, obtenemos su stock actual
+        const productosConStock = await Promise.all(
+          (productosData || []).map(async (producto) => {
+            const { data: stockData } = await supabase
+              .from('stock_diario')
+              .select('cantidad_actual')
+              .eq('producto_id', producto.id)
+              .eq('fecha', fechaActual)
+              .single();
+            
+            return {
+              ...producto,
+              stock_actual: stockData?.cantidad_actual || 0
+            };
+          })
+        );
+        
+        // Filtramos solo productos con stock disponible
+        const productosDisponibles = productosConStock.filter(p => p.stock_actual > 0);
+        
+        // Ordenamos según el orden original de ventas agrupadas
+        const productosOrdenados = productosDisponibles.sort((a, b) => {
+          const indexA = ventasAgrupadas.findIndex((v: { producto_id: string }) => v.producto_id === a.id);
+          const indexB = ventasAgrupadas.findIndex((v: { producto_id: string }) => v.producto_id === b.id);
+          return indexA - indexB;
+        });
+        
+        setProductos(productosOrdenados.slice(0, limit));
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error fetching productos destacados');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductosDestacados();
+  }, [limit]);
+
+  return {
+    productos,
+    loading,
+    error,
+    refetch: fetchProductosDestacados,
+  };
+};
+
 // Hook para actualizar stock
 export const useUpdateStock = () => {
   const [loading, setLoading] = useState(false);

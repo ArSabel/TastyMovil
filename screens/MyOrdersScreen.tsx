@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import tw from 'twrnc';
+import { ArrowLeft } from 'lucide-react-native';
 import { useAuth } from '../context/AuthContext';
 import { useFacturas, Factura } from '../hooks/useServices';
 
@@ -75,7 +76,7 @@ export const MyOrdersScreen: React.FC<MyOrdersScreenProps> = ({ navigation }) =>
 
   if (loading && !refreshing) {
     return (
-      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center`}>
+      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center`} edges={['top']}>
         <ActivityIndicator size="large" color="#3B82F6" />
         <Text style={tw`mt-4 text-gray-600 text-lg`}>Cargando pedidos...</Text>
       </SafeAreaView>
@@ -83,19 +84,19 @@ export const MyOrdersScreen: React.FC<MyOrdersScreenProps> = ({ navigation }) =>
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-gray-50`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-50`} edges={['top']}>
       {/* Header */}
-      <View style={tw`bg-white px-6 py-4 shadow-sm`}>
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
         <View style={tw`flex-row items-center`}>
           <TouchableOpacity
-            style={tw`mr-4 p-2 rounded-full bg-gray-100`}
+            style={tw`p-2`}
             onPress={() => navigation.goBack()}
           >
-            <Text style={tw`text-xl`}>←</Text>
+            <ArrowLeft size={24} color="white" />
           </TouchableOpacity>
           <View style={tw`flex-1`}>
-            <Text style={tw`text-2xl font-bold text-gray-800`}>Mis Pedidos</Text>
-            <Text style={tw`text-gray-600`}>Historial de pedidos realizados</Text>
+            <Text style={tw`text-xl font-bold text-white`}>Mis Pedidos</Text>
+            <Text style={tw`text-white opacity-80`}>Historial de pedidos realizados</Text>
           </View>
         </View>
       </View>

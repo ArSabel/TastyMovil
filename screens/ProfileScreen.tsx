@@ -3,13 +3,13 @@ import {
   View,
   Text,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
   Alert,
   TextInput,
   ActivityIndicator,
   Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import tw from 'twrnc';
@@ -220,7 +220,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
 
   if (loading) {
     return (
-      <SafeAreaView style={tw`flex-1 bg-white justify-center items-center`}>
+      <SafeAreaView style={tw`flex-1 bg-white justify-center items-center`} edges={['top']}>
         <ActivityIndicator size="large" color="#3B82F6" />
         <Text style={tw`mt-4 text-gray-600`}>Cargando perfil...</Text>
       </SafeAreaView>
@@ -252,22 +252,27 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
   ];
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white pt-4`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-50`} edges={['top']}>
       {/* Header */}
-      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500 mt-2`}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={tw`p-2`}
-        >
-          <ArrowLeft size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={tw`text-xl font-bold text-white`}>Mi Cuenta</Text>
-        <TouchableOpacity
-          onPress={() => setIsEditing(!isEditing)}
-          style={tw`p-2`}
-        >
-          <Edit2 size={20} color="white" />
-        </TouchableOpacity>
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
+        <View style={tw`flex-row items-center`}>
+          <TouchableOpacity
+            style={tw`p-2`}
+            onPress={() => navigation.goBack()}
+          >
+            <ArrowLeft size={24} color="white" />
+          </TouchableOpacity>
+          <View style={tw`flex-1`}>
+            <Text style={tw`text-xl font-bold text-white`}>Mi Cuenta</Text>
+            <Text style={tw`text-white opacity-80`}>Información personal</Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => setIsEditing(!isEditing)}
+            style={tw`p-2`}
+          >
+            <Edit2 size={20} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>
@@ -612,4 +617,4 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation, route 
       </ScrollView>
     </SafeAreaView>
   );
-};
+}

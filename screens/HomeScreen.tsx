@@ -4,11 +4,11 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
-  Image,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import tw from 'twrnc';
 import { useAuth } from '../context/AuthContext';
+import { useProductosDestacados } from '../hooks/useServices';
 
 interface HomeScreenProps {
   navigation: any;
@@ -16,6 +16,7 @@ interface HomeScreenProps {
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const { user, signOut } = useAuth();
+  const { productos: productosDestacados, loading: loadingProductos } = useProductosDestacados(3);
 
   const handleLogout = async () => {
     await signOut();
@@ -24,81 +25,59 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const categories = [
     {
       title: 'Desayunos',
-      icon: '🍽️',
-      screen: 'Sections',
+      icon: '🌅',
+      screen: 'Products',
       bgColor: 'bg-blue-100',
       textColor: 'text-blue-600',
+      sectionName: 'Desayunos',
+      sectionId: 1, // ID de la sección de Desayunos
     },
     {
       title: 'Almuerzos',
       icon: '🍽️',
-      screen: 'Sections',
+      screen: 'Products',
       bgColor: 'bg-green-100',
       textColor: 'text-green-600',
+      sectionName: 'Almuerzos',
+      sectionId: 2, // ID de la sección de Almuerzos
     },
     {
       title: 'Meriendas',
-      icon: '🍽️',
-      screen: 'Sections',
+      icon: '🧁',
+      screen: 'Products',
       bgColor: 'bg-blue-100',
       textColor: 'text-blue-600',
+      sectionName: 'Meriendas',
+      sectionId: 3, // ID de la sección de Meriendas
     },
   ];
 
-  const featuredProducts = [
-    {
-      name: 'Hamburguesa Clásica',
-      price: '$8.50',
-      image: '🍔',
-    },
-    {
-      name: 'Pizza Margherita',
-      price: '$12.00',
-      image: '🍕',
-    },
-    {
-      name: 'Ensalada César',
-      price: '$6.50',
-      image: '🥗',
-    },
-  ];
-
-  const features = [
-    {
-      icon: '🥬',
-      title: 'Ingredientes Frescos',
-      description: 'Utilizamos ingredientes frescos y de calidad en todos nuestros platillos.',
-    },
-    {
-      icon: '🚀',
-      title: 'Entrega Rápida',
-      description: 'Entregamos tu comida caliente y fresca en el menor tiempo posible.',
-    },
-    {
-      icon: '👨‍🍳',
-      title: 'Chefs Expertos',
-      description: 'Nuestros chefs tienen años de experiencia preparando comida deliciosa.',
-    },
-  ];
+  // Mapeamos los productos destacados desde la API para mantener la estructura esperada
+  const featuredProducts = loadingProductos ? [
+    { name: 'Cargando...', price: '$0.00', image: '⌛' }
+  ] : productosDestacados.map(producto => ({
+    name: producto.nombre,
+    price: `$${producto.precio.toFixed(2)}`,
+    image: producto.imagen_url ? '🍽️' : '🍔'
+  }));
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-gray-50 pt-4`}>
-      <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>
-        {/* Header */}
-        <View style={tw`bg-white px-6 py-6 shadow-sm`}>
-          <View style={tw`flex-row justify-between items-center mb-4`}>
-            <View>
-              <Text style={tw`text-3xl font-bold text-blue-600`}>TastyFood</Text>
-              <Text style={tw`text-gray-600 text-base`}>¡Hola! {user?.email?.split('@')[0]}</Text>
-            </View>
-            <TouchableOpacity
-              style={tw`bg-red-500 px-4 py-2 rounded-full shadow-sm`}
-              onPress={handleLogout}
-            >
-              <Text style={tw`text-white font-semibold`}>Salir</Text>
-            </TouchableOpacity>
-          </View>
+    <SafeAreaView style={tw`flex-1 bg-gray-50`} edges={['top']}>
+      {/* Header */}
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
+        <View style={tw`flex-1`}>
+          <Text style={tw`text-2xl font-bold text-white`}>TastyFood</Text>
+          <Text style={tw`text-white opacity-80`}>¡Hola! {user?.email?.split('@')[0]}</Text>
         </View>
+        <TouchableOpacity
+          style={tw`bg-red-500 px-4 py-2 rounded-full shadow-sm`}
+          onPress={handleLogout}
+        >
+          <Text style={tw`text-white font-semibold`}>Salir</Text>
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>
 
         {/* Main Banner */}
         <View style={tw`mx-6 mt-6 bg-blue-500 rounded-2xl p-8 shadow-lg`}>
@@ -110,7 +89,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           </Text>
           <TouchableOpacity
             style={tw`bg-white px-6 py-3 rounded-full self-center shadow-sm`}
-            onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}
+            onPress={() => navigation.navigate('Products', { sectionId: 1, sectionName: 'Desayunos' })}
           >
             <Text style={tw`text-blue-600 font-bold text-base`}>Ver Menú</Text>
           </TouchableOpacity>
@@ -120,17 +99,17 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <View style={tw`px-6 py-6`}>
           <View style={tw`flex-row justify-between items-center mb-6`}>
             <Text style={tw`text-2xl font-bold text-gray-800`}>Nuestras Categorías</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}>
+            <TouchableOpacity onPress={() => navigation.navigate('AllCategories')}>
               <Text style={tw`text-blue-600 font-semibold`}>Ver todas</Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={tw`flex-row justify-between`}>
             {categories.map((category, index) => (
               <TouchableOpacity
                 key={index}
                 style={tw`flex-1 ${category.bgColor} rounded-2xl p-4 mx-1 items-center shadow-sm`}
-                onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}
+                onPress={() => navigation.navigate(category.screen, { sectionId: category.sectionId, sectionName: category.sectionName })}
                 activeOpacity={0.8}
               >
                 <Text style={tw`text-3xl mb-2`}>{category.icon}</Text>
@@ -146,11 +125,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <View style={tw`px-6 py-6`}>
           <View style={tw`flex-row justify-between items-center mb-6`}>
             <Text style={tw`text-2xl font-bold text-gray-800`}>Productos Destacados</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}>
+            <TouchableOpacity onPress={() => navigation.navigate('AllFeaturedProducts')}>
               <Text style={tw`text-blue-600 font-semibold`}>Ver todos</Text>
             </TouchableOpacity>
           </View>
-          
+
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {featuredProducts.map((product, index) => (
               <View
@@ -169,27 +148,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           </ScrollView>
         </View>
 
-        {/* ¿Por qué elegirnos? */}
-        <View style={tw`px-6 py-6`}>
-          <Text style={tw`text-2xl font-bold text-gray-800 mb-6 text-center`}>¿Por qué elegirnos?</Text>
-          
-          <View>
-            {features.map((feature, index) => (
-              <View key={index} style={tw`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 ${index > 0 ? 'mt-4' : ''}`}>
-                <View style={tw`flex-row items-center mb-3`}>
-                  <Text style={tw`text-2xl mr-4`}>{feature.icon}</Text>
-                  <Text style={tw`font-bold text-gray-800 text-lg flex-1`}>
-                    {feature.title}
-                  </Text>
-                </View>
-                <Text style={tw`text-gray-600 leading-5 ml-12`}>
-                  {feature.description}
-                </Text>
-              </View>
-            ))}
-          </View>
-        </View>
-
         {/* Call to Action */}
         <View style={tw`mx-6 mb-6 bg-green-500 rounded-2xl p-6 shadow-lg`}>
           <Text style={tw`text-white text-xl font-bold mb-3 text-center`}>
@@ -200,44 +158,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           </Text>
           <TouchableOpacity
             style={tw`bg-white px-6 py-3 rounded-full self-center shadow-sm`}
-            onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}
+            onPress={() => navigation.navigate('Products', { sectionId: 1, sectionName: 'Desayunos' })}
           >
             <Text style={tw`text-green-600 font-bold text-base`}>Hacer Pedido</Text>
           </TouchableOpacity>
-        </View>
-
-        {/* Footer */}
-        <View style={tw`bg-gray-800 mx-6 mb-6 rounded-2xl p-6`}>
-          <Text style={tw`text-white text-xl font-bold mb-4 text-center`}>TastyFood</Text>
-          <Text style={tw`text-gray-300 text-sm mb-4 text-center`}>
-            Somos la Empresa Pública de producción y desarrollo estratégico de la Universidad Laica Eloy Alfaro de Manabí
-          </Text>
-          
-          <View style={tw`border-t border-gray-600 pt-4 mt-4`}>
-            <View style={tw`flex-row justify-between mb-4`}>
-              <View style={tw`flex-1`}>
-                <Text style={tw`text-white font-bold mb-2`}>Horario</Text>
-                <Text style={tw`text-gray-300 text-sm`}>Lunes - Viernes:</Text>
-                <Text style={tw`text-gray-300 text-sm mb-1`}>8:00 - 17:00</Text>
-                <Text style={tw`text-gray-300 text-sm`}>Sábado:</Text>
-                <Text style={tw`text-gray-300 text-sm mb-1`}>8:00 - 14:00</Text>
-                <Text style={tw`text-gray-300 text-sm`}>Domingo:</Text>
-                <Text style={tw`text-gray-300 text-sm`}>Cerrado</Text>
-              </View>
-              
-              <View style={tw`flex-1`}>
-                <Text style={tw`text-white font-bold mb-2`}>Contacto</Text>
-                <Text style={tw`text-gray-300 text-sm mb-1`}>+593 95 895 1061</Text>
-                <Text style={tw`text-gray-300 text-sm mb-1`}>052679600</Text>
-                <Text style={tw`text-gray-300 text-sm mb-1`}>gerencia@ep-uleam.gob.ec</Text>
-                <Text style={tw`text-gray-300 text-sm`}>ULEAM, Manta</Text>
-              </View>
-            </View>
-            
-            <Text style={tw`text-gray-400 text-xs text-center mt-4`}>
-              © 2025 TastyFood. Todos los derechos reservados.
-            </Text>
-          </View>
         </View>
 
         {/* Bottom Spacing */}

@@ -4,10 +4,12 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
-  Alert,
   Image,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ArrowLeft } from 'lucide-react-native';
 import tw from 'twrnc';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../hooks/useCart';
@@ -138,21 +140,17 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-gray-50 pt-4`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-50`} edges={['top']}>
       {/* Header */}
-      <View style={tw`bg-white px-6 py-4 shadow-sm`}>
-        <View style={tw`flex-row items-center`}>
-          <TouchableOpacity
-              style={tw`mr-4 p-2 rounded-full bg-blue-100`}
-              onPress={() => navigation.goBack()}
-            >
-            <Text style={tw`text-xl text-blue-600`}>←</Text>
-          </TouchableOpacity>
-          <View style={tw`flex-1`}>
-            <Text style={tw`text-2xl font-bold text-blue-600`}>Mi Carrito</Text>
-            <Text style={tw`text-gray-600`}>{cartItems.length} productos</Text>
-          </View>
-        </View>
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
+        <TouchableOpacity
+          style={tw`p-2`}
+          onPress={() => navigation.goBack()}
+        >
+          <ArrowLeft size={24} color="white" />
+        </TouchableOpacity>
+          <Text style={tw`text-xl font-bold text-white`}>Mi Carrito</Text>
+          <View style={tw`w-8`} />
       </View>
 
       {cartItems.length === 0 ? (

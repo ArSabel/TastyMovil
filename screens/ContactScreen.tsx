@@ -3,11 +3,11 @@ import {
   View,
   Text,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
   Linking,
   Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import tw from 'twrnc';
 import { ArrowLeft, Phone, Mail, MessageCircle, Clock } from 'lucide-react-native';
 
@@ -42,17 +42,17 @@ export const ContactScreen: React.FC<ContactScreenProps> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white pt-4`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-50`} edges={['top']}>
       {/* Header */}
       <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
           style={tw`p-2`}
-        >
-          <ArrowLeft size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={tw`text-xl font-bold text-white`}>Contacto</Text>
-        <View style={tw`w-8`} />
+            onPress={() => navigation.goBack()}
+          >
+            <ArrowLeft size={24} color="white" />
+          </TouchableOpacity>
+          <Text style={tw`text-xl font-bold text-white`}>Contacto</Text>
+          <View style={tw`w-8`} />
       </View>
 
       <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>

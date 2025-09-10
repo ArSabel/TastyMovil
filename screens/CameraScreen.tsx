@@ -101,9 +101,12 @@ export const CameraScreen: React.FC<CameraScreenProps> = ({ navigation }) => {
             style={tw`bg-black bg-opacity-50 p-3 rounded-full`}
             onPress={() => navigation.goBack()}
           >
-            <Text style={tw`text-white text-lg`}>←</Text>
+            <Text style={tw`text-white text-xl`}>←</Text>
           </TouchableOpacity>
-          <Text style={tw`text-white font-bold text-lg`}>Vista Previa</Text>
+          <View>
+            <Text style={tw`text-white font-bold text-2xl`}>Vista Previa</Text>
+            <Text style={tw`text-gray-300 text-center`}>Revisa tu foto</Text>
+          </View>
           <View style={tw`w-10`} />
         </View>
 
@@ -140,9 +143,12 @@ export const CameraScreen: React.FC<CameraScreenProps> = ({ navigation }) => {
           style={tw`bg-black bg-opacity-50 p-3 rounded-full`}
           onPress={() => navigation.goBack()}
         >
-          <Text style={tw`text-white text-lg`}>←</Text>
+          <Text style={tw`text-white text-xl`}>←</Text>
         </TouchableOpacity>
-        <Text style={tw`text-white font-bold text-lg`}>Cámara</Text>
+        <View>
+          <Text style={tw`text-white font-bold text-2xl`}>Cámara</Text>
+          <Text style={tw`text-gray-300 text-center`}>Toma una foto</Text>
+        </View>
         <TouchableOpacity
           style={tw`bg-black bg-opacity-50 p-3 rounded-full`}
           onPress={toggleCameraFacing}

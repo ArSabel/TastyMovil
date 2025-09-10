@@ -3,10 +3,10 @@ import {
   View,
   Text,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
   Linking,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import tw from 'twrnc';
 import { ArrowLeft, MapPin, Navigation, Clock, Phone } from 'lucide-react-native';
 
@@ -25,7 +25,7 @@ export const LocationsScreen: React.FC<LocationsScreenProps> = ({ navigation }) 
   };
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white pt-4`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-50`} edges={['top']}>
       {/* Header */}
       <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
         <TouchableOpacity

@@ -2,6 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 import tw from 'twrnc';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   Menu,
   Users,
@@ -19,15 +20,58 @@ import {
   ContactScreen,
   CartScreen,
   ProfileScreen,
+  HomeScreen,
+  ProductsScreen,
+  MyOrdersScreen,
+  OrderDetailsScreen,
+  CameraScreen,
+  AllCategoriesScreen,
+  AllFeaturedProductsScreen,
 } from '../screens';
+import { RootStackParamList } from './AppNavigator';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 interface TabIconProps {
   focused: boolean;
   color: string;
   size: number;
 }
+
+// Navegador de pila para la pestaña Home/Menu
+const HomeStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Sections" component={SectionsScreen} />
+      <Stack.Screen name="Products" component={ProductsScreen} />
+      <Stack.Screen name="AllCategories" component={AllCategoriesScreen} />
+      <Stack.Screen name="AllFeaturedProducts" component={AllFeaturedProductsScreen} />
+    </Stack.Navigator>
+  );
+};
+
+// Navegador de pila para la pestaña Cart
+const CartStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Cart" component={CartScreen} />
+      <Stack.Screen name="OrderDetails" component={OrderDetailsScreen} />
+      <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
+    </Stack.Navigator>
+  );
+};
+
+// Navegador de pila para la pestaña Profile
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Camera" component={CameraScreen} />
+    </Stack.Navigator>
+  );
+};
 
 const getTabBarIcon = (routeName: string) => {
   return ({ focused, color, size }: TabIconProps) => {
@@ -89,9 +133,9 @@ export const BottomTabNavigator: React.FC = () => {
     >
       <Tab.Screen
         name="Menu"
-        component={SectionsScreen}
+        component={HomeStack}
         options={{
-          tabBarLabel: 'Menú',
+          tabBarLabel: 'Inicio',
         }}
       />
       
@@ -107,7 +151,7 @@ export const BottomTabNavigator: React.FC = () => {
         name="Locations"
         component={LocationsScreen}
         options={{
-          tabBarLabel: 'Ubicaciones',
+          tabBarLabel: 'Ubicación',
         }}
       />
       
@@ -121,7 +165,7 @@ export const BottomTabNavigator: React.FC = () => {
       
       <Tab.Screen
         name="Cart"
-        component={CartScreen}
+        component={CartStack}
         options={{
           tabBarLabel: 'Carrito',
         }}
@@ -129,9 +173,9 @@ export const BottomTabNavigator: React.FC = () => {
       
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{
-          tabBarLabel: 'Mi Cuenta',
+          tabBarLabel: 'Cuenta',
         }}
       />
     </Tab.Navigator>

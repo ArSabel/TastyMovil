@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { AuthProvider } from './context/AuthContext';
 import { AppNavigator } from './navigation/AppNavigator';
 import { NotificationService } from './services/NotificationService';
-import { Alert } from 'react-native';
-import { SplashScreen } from './screens';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  
-  const handleAnimationComplete = () => {
-    setIsLoading(false);
-  };
-  
   useEffect(() => {
     // Initialize notifications
     const initializeNotifications = async () => {
@@ -49,13 +42,11 @@ export default function App() {
   }, []);
 
   return (
-    <AuthProvider>
-      <StatusBar style="auto" />
-      {isLoading ? (
-        <SplashScreen onAnimationComplete={handleAnimationComplete} />
-      ) : (
+    <SafeAreaProvider>
+      <AuthProvider>
+        <StatusBar style="auto" />
         <AppNavigator />
-      )}
-    </AuthProvider>
+      </AuthProvider>
+    </SafeAreaProvider>
   );
 }

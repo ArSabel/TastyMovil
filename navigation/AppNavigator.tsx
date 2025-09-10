@@ -13,7 +13,6 @@ import {
   OrderDetailsScreen,
   MyOrdersScreen,
   CameraScreen,
-  RestaurantsScreen,
   AboutScreen,
   LocationsScreen,
   ContactScreen,
@@ -28,17 +27,18 @@ export type RootStackParamList = {
   Register: undefined;
   Profile: undefined;
   Home: undefined;
-  Sections: undefined;
+  Sections: { sectionName?: string };
   Products: { sectionId: string; sectionName: string };
   Cart: undefined;
   OrderDetails: { facturaId: number; numeroFactura: string; total: number };
   MyOrders: undefined;
   Camera: undefined;
-  Restaurants: undefined;
   About: undefined;
   Locations: undefined;
   Contact: undefined;
   MainTabs: undefined;
+  AllCategories: undefined;
+  AllFeaturedProducts: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -79,38 +79,14 @@ const MainStack = () => {
       }}
     >
       <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen 
-        name="Profile" 
-        component={ProfileScreen} 
-        options={{
-          animation: 'slide_from_right',
-        }}
-      />
-      <Stack.Screen 
-        name="Products" 
-        component={ProductsScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen 
-        name="MyOrders" 
-        component={MyOrdersScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen 
-        name="OrderDetails" 
-        component={OrderDetailsScreen}
-        options={{
-          headerShown: false,
-          presentation: 'modal',
-        }}
-      />
-      <Stack.Screen name="Camera" component={CameraScreen} />
-      <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
+      {/* Las siguientes pantallas ahora están dentro de los Stack Navigators en BottomTabNavigator */}
+      {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
+      {/* <Stack.Screen name="Sections" component={SectionsScreen} /> */}
+      {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
+      {/* <Stack.Screen name="Products" component={ProductsScreen} /> */}
+      {/* <Stack.Screen name="MyOrders" component={MyOrdersScreen} /> */}
+      {/* <Stack.Screen name="OrderDetails" component={OrderDetailsScreen} /> */}
+      {/* <Stack.Screen name="Camera" component={CameraScreen} /> */}
     </Stack.Navigator>
   );
 };

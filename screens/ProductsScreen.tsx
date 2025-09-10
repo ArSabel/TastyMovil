@@ -4,11 +4,12 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
   ActivityIndicator,
   Alert,
   Image,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ArrowLeft, ShoppingCart } from 'lucide-react-native';
 import tw from 'twrnc';
 import { useProductos, Producto } from '../hooks/useServices';
 import { useCart } from '../hooks/useCart';
@@ -104,7 +105,7 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
 
   if (error) {
     return (
-      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center px-6`}>
+      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center px-6`} edges={['top']}>
         <Text style={tw`text-6xl mb-4`}>❌</Text>
         <Text style={tw`text-xl font-bold text-gray-800 mb-2 text-center`}>Error al cargar productos</Text>
         <Text style={tw`text-gray-600 text-center mb-6`}>{error}</Text>
@@ -120,7 +121,7 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
 
   if (loading) {
     return (
-      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center`}>
+      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center`} edges={['top']}>
         <ActivityIndicator size="large" color="#2563EB" />
         <Text style={tw`mt-4 text-gray-600 text-lg`}>Cargando productos...</Text>
       </SafeAreaView>
@@ -128,27 +129,22 @@ export const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation, rout
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-gray-50 pt-4`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-50`} edges={['top']}>
       {/* Header */}
-      <View style={tw`bg-white px-6 py-4 shadow-sm`}>
-        <View style={tw`flex-row items-center`}>
-          <TouchableOpacity
-            style={tw`mr-4 p-2 rounded-full bg-blue-100`}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={tw`text-xl text-blue-600`}>←</Text>
-          </TouchableOpacity>
-          <View style={tw`flex-1`}>
-            <Text style={tw`text-2xl font-bold text-blue-600`}>{sectionName}</Text>
-            <Text style={tw`text-gray-600`}>{productos.length} productos disponibles</Text>
-          </View>
-          <TouchableOpacity
-            style={tw`p-2 rounded-full bg-blue-100`}
-            onPress={() => navigation.navigate('Cart')}
-          >
-            <Text style={tw`text-xl text-blue-600`}>🛒</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
+        <TouchableOpacity
+          style={tw`p-2`}
+          onPress={() => navigation.goBack()}
+        >
+          <ArrowLeft size={24} color="white" />
+        </TouchableOpacity>
+        <Text style={tw`text-xl font-bold text-white`}>{sectionName}</Text>
+        <TouchableOpacity
+          style={tw`p-2`}
+          onPress={() => navigation.navigate('Cart')}
+        >
+          <ShoppingCart size={24} color="white" />
+        </TouchableOpacity>
       </View>
 
       <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>

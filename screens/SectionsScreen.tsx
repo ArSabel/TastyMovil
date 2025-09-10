@@ -4,9 +4,10 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ArrowLeft } from 'lucide-react-native';
 import tw from 'twrnc';
 import { useSecciones } from '../hooks/useServices';
 
@@ -15,8 +16,29 @@ interface SectionsScreenProps {
   route: any;
 }
 
-export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation }) => {
-  const { secciones, loading, error } = useSecciones();
+export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation, route }) => {
+  const { sectionName } = route.params || { sectionName: undefined };
+  const { secciones: allSecciones, loading, error } = useSecciones();
+  
+  // Filtrar secciones según el parámetro recibido
+  const secciones = React.useMemo(() => {
+    if (!allSecciones) return [];
+    
+    // Si no hay sectionName o es 'Menu' o 'Categorias', mostrar todas las secciones
+    if (!sectionName || sectionName === 'Menu' || sectionName === 'Categorias') {
+      return allSecciones;
+    }
+    
+    // Si es 'Destacados', podríamos mostrar secciones destacadas o todas
+    if (sectionName === 'Destacados') {
+      return allSecciones;
+    }
+    
+    // Si es un nombre específico (Desayunos, Almuerzos, Meriendas), filtrar por ese nombre
+    return allSecciones.filter(seccion => 
+      seccion.nombre.toLowerCase().includes(sectionName.toLowerCase())
+    );
+  }, [allSecciones, sectionName]);
 
   const getSectionIcon = (nombre: string) => {
     const name = nombre.toLowerCase();
@@ -47,7 +69,7 @@ export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation }) =>
 
   if (error) {
     return (
-      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center px-6`}>
+      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center px-6`} edges={['top']}>
         <Text style={tw`text-6xl mb-4`}>❌</Text>
         <Text style={tw`text-xl font-bold text-gray-800 mb-2 text-center`}>Error al cargar secciones</Text>
         <Text style={tw`text-gray-600 text-center mb-6`}>{error}</Text>
@@ -63,7 +85,7 @@ export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation }) =>
 
   if (loading) {
     return (
-      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center`}>
+      <SafeAreaView style={tw`flex-1 bg-gray-50 justify-center items-center`} edges={['top']}>
         <ActivityIndicator size="large" color="#2563EB" />
         <Text style={tw`mt-4 text-gray-600 text-lg`}>Cargando secciones...</Text>
       </SafeAreaView>
@@ -71,15 +93,23 @@ export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation }) =>
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-gray-50`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-50`} edges={['top']}>
       {/* Header */}
-      <View style={tw`bg-white px-6 py-4 shadow-sm`}>
-        <View style={tw`flex-row items-center`}>
-          <Text style={tw`text-2xl font-bold text-blue-600`}>Nuestro Menú</Text>
-        </View>
+      <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
+        <TouchableOpacity
+          style={tw`p-2`}
+          onPress={() => navigation.goBack()}
+        >
+          <ArrowLeft size={24} color="white" />
+        </TouchableOpacity>
+        <Text style={tw`text-2xl font-bold text-white`}>
+          {sectionName === 'Menu' || sectionName === 'Categorias' || !sectionName ? 'Secciones' : sectionName}
+        </Text>
+        <View style={tw`w-10`} />
       </View>
 
       <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>
+
         <View style={tw`px-6 py-6`}>
           <Text style={tw`text-lg font-bold text-gray-800 mb-4`}>Elige tu sección favorita:</Text>
           
@@ -132,8 +162,8 @@ export const SectionsScreen: React.FC<SectionsScreenProps> = ({ navigation }) =>
           </Text>
         </View>
 
-        {/* Bottom Spacing */}
-        <View style={tw`h-6`} />
+        {/* Bottom Spacing for Tab Navigator */}
+        <View style={tw`h-20`} />
       </ScrollView>
     </SafeAreaView>
   );

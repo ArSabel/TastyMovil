@@ -186,13 +186,13 @@ export const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ navigati
       <View style={tw`bg-white px-6 py-4 shadow-sm`}>
         <View style={tw`flex-row items-center`}>
           <TouchableOpacity
-            style={tw`mr-4 p-2 rounded-full bg-gray-100`}
+            style={tw`mr-4 p-2 rounded-full bg-blue-100`}
             onPress={() => navigation.navigate('Home')}
           >
-            <Text style={tw`text-xl`}>←</Text>
+            <Text style={tw`text-xl text-blue-600`}>←</Text>
           </TouchableOpacity>
           <View style={tw`flex-1`}>
-            <Text style={tw`text-2xl font-bold text-gray-800`}>Detalles del Pedido</Text>
+            <Text style={tw`text-2xl font-bold text-blue-600`}>Detalles del Pedido</Text>
             <Text style={tw`text-gray-600`}>{numeroFactura}</Text>
           </View>
           <TouchableOpacity
