@@ -54,8 +54,8 @@ export const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ navigati
           numero_factura: numeroFactura,
           cliente_id: 'user-id',
           empleado_id: 'employee-id',
-          subtotal: total / 1.16,
-          impuesto: total * 0.16 / 1.16,
+          subtotal: total / 1.15,
+          impuesto: total * 0.15 / 1.15,
           descuento: 0,
           total: total,
           estado: 'pagado',
@@ -335,7 +335,7 @@ export const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ navigati
         <View style={tw`mx-6 mt-6 mb-6`}>
           <TouchableOpacity
             style={tw`bg-blue-500 rounded-2xl py-4 items-center mb-3`}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Menu')}
           >
             <Text style={tw`text-white font-bold text-lg`}>Realizar Otro Pedido</Text>
           </TouchableOpacity>

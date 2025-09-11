@@ -67,7 +67,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       <View style={tw`flex-row items-center justify-between px-6 py-4 bg-blue-500`}>
         <View style={tw`flex-1`}>
           <Text style={tw`text-2xl font-bold text-white`}>TastyFood</Text>
-          <Text style={tw`text-white opacity-80`}>¡Hola! {user?.email?.split('@')[0]}</Text>
+          <Text style={tw`text-white opacity-80`}>¡Hola!</Text>
         </View>
         <TouchableOpacity
           style={tw`bg-red-500 px-4 py-2 rounded-full shadow-sm`}

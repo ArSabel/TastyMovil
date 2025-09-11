@@ -69,6 +69,8 @@ const ProfileStack = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Camera" component={CameraScreen} />
+      <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
+      <Stack.Screen name="OrderDetails" component={OrderDetailsScreen} />
     </Stack.Navigator>
   );
 };

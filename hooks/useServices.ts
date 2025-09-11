@@ -315,7 +315,7 @@ export const useCreateFactura = () => {
       const subtotal = facturaData.productos.reduce(
         (sum, item) => sum + (item.precio_unitario * item.cantidad), 0
       );
-      const impuesto = subtotal * 0.12; // 12% IVA
+      const impuesto = subtotal * 0.15; // 15% IVA
       const total = subtotal + impuesto;
 
       // Crear factura

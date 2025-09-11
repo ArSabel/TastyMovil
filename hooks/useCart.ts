@@ -16,7 +16,7 @@ export interface CartSummary {
 }
 
 const CART_STORAGE_KEY = '@tasty_movil_cart';
-const TAX_RATE = 0.16; // 16% IVA
+const TAX_RATE = 0.15; // 15% IVA
 
 export const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);

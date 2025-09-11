@@ -251,7 +251,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
             </View>
             
             <View style={tw`flex-row justify-between mb-2`}>
-              <Text style={tw`text-gray-600`}>Impuestos (16%)</Text>
+              <Text style={tw`text-gray-600`}>Impuestos (15%)</Text>
               <Text style={tw`text-gray-800 font-semibold`}>{formatPrice(summary.tax)}</Text>
             </View>
             
